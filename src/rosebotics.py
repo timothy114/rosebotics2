@@ -233,6 +233,11 @@ class ColorSensor(rb.ColorSensor):
         """
         # TODO.
 
+        while True:
+            if self.get_reflected_intensity() < reflected_light_intensity:
+                break
+
+
     def wait_until_intensity_is_greater_than(self, reflected_light_intensity):
         """
         Waits (doing nothing new) until the sensor's measurement of reflected
@@ -240,6 +245,10 @@ class ColorSensor(rb.ColorSensor):
         should be between 0 (no light reflected) and 100 (max light reflected).
         """
         # TODO.
+
+        while True:
+            if self.get_reflected_intensity() > reflected_light_intensity:
+                break
 
     def wait_until_color_is(self, color):
         """
@@ -249,6 +258,10 @@ class ColorSensor(rb.ColorSensor):
         """
         # TODO.
 
+        while True:
+            if self.get_color() == color:
+                break
+
     def wait_until_color_is_one_of(self, colors):
         """
         Waits (doing nothing new) until the sensor's measurement
@@ -256,6 +269,11 @@ class ColorSensor(rb.ColorSensor):
         Each item in the sequence must be a Color (as defined above).
         """
         # TODO.
+
+        while True:
+            for k in range(len(colors)):
+                if colors[k] == self.get_color():
+                    break
 
 
 class InfraredSensorAsProximitySensor(object):
