@@ -16,15 +16,10 @@ def main():
 
 def run_tests():
     """ Runs various tests. """
-<<<<<<< Updated upstream
+
     # run_test_drive_system()
     # run_test_touch_sensor()
     run_test_color_sensor()
-=======
-    run_test_drive_system()
-    # run_test_touch_sensor()
-    # run_test_color_sensor()
->>>>>>> Stashed changes
 
 
 def run_test_drive_system():
