@@ -16,9 +16,15 @@ def main():
 
 def run_tests():
     """ Runs various tests. """
+<<<<<<< Updated upstream
     # run_test_drive_system()
     # run_test_touch_sensor()
     run_test_color_sensor()
+=======
+    run_test_drive_system()
+    # run_test_touch_sensor()
+    # run_test_color_sensor()
+>>>>>>> Stashed changes
 
 
 def run_test_drive_system():
@@ -69,24 +75,23 @@ def run_test_drive_system():
     print(robot.drive_system.left_wheel.get_degrees_spun())
     """
 
+    # Move forward for 1 second
+    # robot.drive_system.move_for_seconds(1, 100, 100)
 
-    #Move forward for 1 second
-    #robot.drive_system.move_for_seconds(1, 100, 100)
+    # Move forward 10 inches at 50% speed
+    # robot.drive_system.go_straight_inches(10,50)
 
-    #Move forward 10 inches at 50% speed
-    #robot.drive_system.go_straight_inches(10,50)
-
-    #Delay 5 seconds
-    #time.sleep(5)
+    # Delay 5 seconds
+    # time.sleep(5)
 
     # Move forward 5 inches
-    #robot.drive_system.go_straight_inches(5)
+    # robot.drive_system.go_straight_inches(5)
 
-    #Spin in place 90 degrees
-    #robot.drive_system.spin_in_place_degrees(90)
+    # Spin in place 90 degrees
+    # robot.drive_system.spin_in_place_degrees(90)
 
-    #Turn 180 degrees
-    #robot.drive_system.turn_degrees(90)
+    # Turn 180 degrees
+    # robot.drive_system.turn_degrees(90)
 
 
 def run_test_touch_sensor():
