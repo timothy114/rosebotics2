@@ -105,9 +105,9 @@ class DriveSystem(object):
         Go straight at the given speed (-100 to 100, negative is backwards)
         for the given number of inches, stopping with the given StopAction.
         """
-        # TODO: Do a few experiments to determine the constant that converts
-        # TODO:   from wheel-degrees-spun to robot-inches-moved.
-        # TODO:   Assume that the conversion is linear with respect to speed.
+        # DONE: Do a few experiments to determine the constant that converts
+        # DONE:   from wheel-degrees-spun to robot-inches-moved.
+        # DONE:   Assume that the conversion is linear with respect to speed.
 
         conversion = (9.4 * (duty_cycle_percent/100)) - (1-(duty_cycle_percent/100))
         # Robot moves 9.4 inches in 1 second of full speed
@@ -129,14 +129,14 @@ class DriveSystem(object):
         where positive is clockwise and negative is counter-clockwise),
         stopping by using the given StopAction.
         """
-        # TODO: Do a few experiments to determine the constant that converts
-        # TODO:   from wheel-degrees-spun to robot-degrees-spun.
-        # TODO:   Assume that the conversion is linear with respect to speed.
+        # DONE: Do a few experiments to determine the constant that converts
+        # DONE:   from wheel-degrees-spun to robot-degrees-spun.
+        # DONE:   Assume that the conversion is linear with respect to speed.
 
         # Always turns right
 
         # Conversion rate
-        conversion = 133 * (duty_cycle_percent/100)
+        conversion = 125 * (duty_cycle_percent/100)
 
         #Converting degrees to seconds
         seconds = degrees/conversion
@@ -155,14 +155,14 @@ class DriveSystem(object):
         where positive is clockwise and negative is counter-clockwise),
         stopping by using the given StopAction.
         """
-        # TODO: Do a few experiments to determine the constant that converts
-        # TODO:   from wheel-degrees-spun to robot-degrees-turned.
-        # TODO:   Assume that the conversion is linear with respect to speed.
+        # DONE: Do a few experiments to determine the constant that converts
+        # DONE:   from wheel-degrees-spun to robot-degrees-turned.
+        # DONE:   Assume that the conversion is linear with respect to speed.
 
         #Always turn right
 
         # Conversion rate
-        conversion =  67 * (duty_cycle_percent / 100)
+        conversion =  62.5 * (duty_cycle_percent / 100)
 
         # Converting degrees to seconds
         seconds = degrees / conversion
