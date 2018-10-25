@@ -20,6 +20,7 @@ def run_tests():
     #run_test_touch_sensor()
     #run_test_color_sensor()
 
+
 def run_test_drive_system():
     """ Tests the  drive_system  of the Snatch3rRobot. """
     robot = rb.Snatch3rRobot()
@@ -87,10 +88,12 @@ def run_test_drive_system():
     #Turn 180 degrees
     #robot.drive_system.turn_degrees(90)
 
+
 def run_test_touch_sensor():
     """ Tests the  touch_sensor  of the Snatch3rRobot. """
     robot = rb.Snatch3rRobot()
 
+    """
     print()
     print("Testing the  touch_sensor  of the robot.")
     print("Repeatedly press and release the touch sensor.")
@@ -102,6 +105,12 @@ def run_test_touch_sensor():
               "Touch sensor value is: ", robot.touch_sensor.get_value())
         time.sleep(0.5)
         count = count + 1
+    """
+    # Wait until the touch sensor is pressed
+    robot.touch_sensor.wait_until_pressed()
+
+    # Wait until the touch sensor is released
+    robot.touch_sensor.wait_until_released()
 
 
 def run_test_color_sensor():
