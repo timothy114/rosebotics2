@@ -109,11 +109,12 @@ class DriveSystem(object):
         # TODO:   from wheel-degrees-spun to robot-inches-moved.
         # TODO:   Assume that the conversion is linear with respect to speed.
 
-        conversion = 9.4 * (duty_cycle_percent/100)
+        conversion = (9.4 * (duty_cycle_percent/100)) - (1-(duty_cycle_percent/100))
         # Robot moves 9.4 inches in 1 second of full speed
 
         # Converting inches to seconds
         seconds = (inches/conversion)
+        print("Moving for seconds: " + str(seconds))
 
         #Moving for ____ seconds
         self.move_for_seconds(seconds,duty_cycle_percent,duty_cycle_percent)
@@ -132,11 +133,14 @@ class DriveSystem(object):
         # TODO:   from wheel-degrees-spun to robot-degrees-spun.
         # TODO:   Assume that the conversion is linear with respect to speed.
 
+        # Always turns right
+
         # Conversion rate
-        conversion = 720 * (duty_cycle_percent/100)
+        conversion = 133 * (duty_cycle_percent/100)
 
         #Converting degrees to seconds
         seconds = degrees/conversion
+        print("Turning for " + str(seconds) + " seconds")
 
         #Turning the robot
         self.move_for_seconds(seconds, duty_cycle_percent,-1 * duty_cycle_percent)
@@ -155,11 +159,14 @@ class DriveSystem(object):
         # TODO:   from wheel-degrees-spun to robot-degrees-turned.
         # TODO:   Assume that the conversion is linear with respect to speed.
 
+        #Always turn right
+
         # Conversion rate
-        conversion = 360 * (duty_cycle_percent / 100)
+        conversion =  67 * (duty_cycle_percent / 100)
 
         # Converting degrees to seconds
         seconds = degrees / conversion
+        print("Turning for " + str(seconds) + " seconds")
 
         # Turning the robot
         self.move_for_seconds(seconds, duty_cycle_percent,0)
@@ -201,18 +208,23 @@ class ArmAndClaw(object):
 
 
 class TouchSensor(rb.TouchSensor):
-    """ Primary author of this class:  PUT_YOUR_NAME_HERE. """
+    """ Primary author of this class:  Toluwa Nafiu. """
 
     def __init__(self, port=ev3.INPUT_1):
         super().__init__(port)
 
     def wait_until_pressed(self):
         """ Waits (doing nothing new) until the touch sensor is pressed. """
-        # TODO.
+        touch = 0
+        while self.get_value() == touch:
+            time.sleep(0.1)
 
     def wait_until_released(self):
         """ Waits (doing nothing new) until the touch sensor is released. """
-        # TODO
+        # DONE
+        touch = 1
+        while self.get_value() == touch:
+            time.sleep(0.1)
 
 
 class Camera(object):
