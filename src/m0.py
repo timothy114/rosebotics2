@@ -16,30 +16,30 @@ def main():
 
 def run_tests():
     """ Runs various tests. """
-    # run_test_drive_system()
-    # run_test_touch_sensor()
-    run_test_color_sensor()
-
+    run_test_drive_system()
+    #run_test_touch_sensor()
+    #run_test_color_sensor()
 
 def run_test_drive_system():
     """ Tests the  drive_system  of the Snatch3rRobot. """
     robot = rb.Snatch3rRobot()
 
+    """
     print()
     print("Testing the  drive_system  of the robot.")
     print("Move at (20, 50) - that is, veer left slowly")
-    robot.drive_system.start_moving(20, 50)
+    robot.drive_system.start_moving(20, 10)
     time.sleep(2)
     robot.drive_system.stop_moving()
 
     print("Left/right wheel positions:",
           robot.drive_system.left_wheel.get_degrees_spun(),
           robot.drive_system.right_wheel.get_degrees_spun())
-
+    
     time.sleep(1)
     print()
-    print("Spin clockwise at half speed for 2.5 seconds")
-    robot.drive_system.move_for_seconds(2.5, 50, -50)
+    print("Spin clockwise at half speed for 1 seconds")
+    robot.drive_system.move_for_seconds(1, 100, -100)
 
     print("Left/right wheel positions:",
           robot.drive_system.left_wheel.get_degrees_spun(),
@@ -59,6 +59,9 @@ def run_test_drive_system():
           robot.drive_system.left_wheel.get_degrees_spun(),
           robot.drive_system.right_wheel.get_degrees_spun())
 
+    """
+
+    robot.drive_system.move_for_seconds(1, 100, 100)
 
 def run_test_touch_sensor():
     """ Tests the  touch_sensor  of the Snatch3rRobot. """

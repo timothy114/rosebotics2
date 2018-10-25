@@ -109,6 +109,13 @@ class DriveSystem(object):
         # TODO:   from wheel-degrees-spun to robot-inches-moved.
         # TODO:   Assume that the conversion is linear with respect to speed.
 
+        conversion = 9.4
+        # Robot moves 9.4 inches in 1 second of full speed
+
+        # Converting the inches to degrees rotated
+        seconds = (inches/conversion)
+        self.move_for_seconds(seconds,duty_cycle_percent,duty_cycle_percent)
+
     def spin_in_place_degrees(self,
                               degrees,
                               duty_cycle_percent=100,
@@ -122,6 +129,8 @@ class DriveSystem(object):
         # TODO: Do a few experiments to determine the constant that converts
         # TODO:   from wheel-degrees-spun to robot-degrees-spun.
         # TODO:   Assume that the conversion is linear with respect to speed.
+
+
     def turn_degrees(self,
                      degrees,
                      duty_cycle_percent=100,
