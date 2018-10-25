@@ -133,6 +133,8 @@ class DriveSystem(object):
         # TODO:   from wheel-degrees-spun to robot-degrees-spun.
         # TODO:   Assume that the conversion is linear with respect to speed.
 
+        # Always turns right
+
         # Conversion rate
         conversion = 133 * (duty_cycle_percent/100)
 
@@ -157,11 +159,14 @@ class DriveSystem(object):
         # TODO:   from wheel-degrees-spun to robot-degrees-turned.
         # TODO:   Assume that the conversion is linear with respect to speed.
 
+        #Always turn right
+
         # Conversion rate
         conversion =  67 * (duty_cycle_percent / 100)
 
         # Converting degrees to seconds
         seconds = degrees / conversion
+        print("Turning for " + str(seconds) + " seconds")
 
         # Turning the robot
         self.move_for_seconds(seconds, duty_cycle_percent,0)

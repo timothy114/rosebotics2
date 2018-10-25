@@ -85,7 +85,7 @@ def run_test_drive_system():
     #robot.drive_system.spin_in_place_degrees(90)
 
     #Turn 180 degrees
-    robot.drive_system.turn_degrees(90)
+    #robot.drive_system.turn_degrees(90)
 
 def run_test_touch_sensor():
     """ Tests the  touch_sensor  of the Snatch3rRobot. """
