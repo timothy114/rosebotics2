@@ -70,13 +70,19 @@ def run_test_drive_system():
 
 
     #Move forward for 1 second
-    robot.drive_system.move_for_seconds(1, 100, 100)
+    #robot.drive_system.move_for_seconds(1, 100, 100)
 
-    #Move forward 5 inches
-    robot.drive_system.go_straight_inches(5)
+    #Move forward 10 inches at 50% speed
+    #robot.drive_system.go_straight_inches(10,50)
+
+    #Delay 5 seconds
+    #time.sleep(5)
+
+    # Move forward 5 inches
+    #robot.drive_system.go_straight_inches(5)
 
     #Spin in place 90 degrees
-    robot.drive_system.spin_in_place_degrees(90)
+    #robot.drive_system.spin_in_place_degrees(90)
 
     #Turn 180 degrees
     robot.drive_system.turn_degrees(90)

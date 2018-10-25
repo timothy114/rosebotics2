@@ -109,11 +109,12 @@ class DriveSystem(object):
         # TODO:   from wheel-degrees-spun to robot-inches-moved.
         # TODO:   Assume that the conversion is linear with respect to speed.
 
-        conversion = 9.4 * (duty_cycle_percent/100)
+        conversion = (9.4 * (duty_cycle_percent/100)) - (1-(duty_cycle_percent/100))
         # Robot moves 9.4 inches in 1 second of full speed
 
         # Converting inches to seconds
         seconds = (inches/conversion)
+        print("Moving for seconds: " + str(seconds))
 
         #Moving for ____ seconds
         self.move_for_seconds(seconds,duty_cycle_percent,duty_cycle_percent)
@@ -133,10 +134,11 @@ class DriveSystem(object):
         # TODO:   Assume that the conversion is linear with respect to speed.
 
         # Conversion rate
-        conversion = 720 * (duty_cycle_percent/100)
+        conversion = 133 * (duty_cycle_percent/100)
 
         #Converting degrees to seconds
         seconds = degrees/conversion
+        print("Turning for " + str(seconds) + " seconds")
 
         #Turning the robot
         self.move_for_seconds(seconds, duty_cycle_percent,-1 * duty_cycle_percent)
@@ -156,7 +158,7 @@ class DriveSystem(object):
         # TODO:   Assume that the conversion is linear with respect to speed.
 
         # Conversion rate
-        conversion = 360 * (duty_cycle_percent / 100)
+        conversion =  67 * (duty_cycle_percent / 100)
 
         # Converting degrees to seconds
         seconds = degrees / conversion
