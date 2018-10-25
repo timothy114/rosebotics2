@@ -20,7 +20,7 @@ def run_tests():
     # run_test_drive_system()
     # run_test_touch_sensor()
     run_test_color_sensor()
-
+    
 
 def run_test_drive_system():
     """ Tests the  drive_system  of the Snatch3rRobot. """
