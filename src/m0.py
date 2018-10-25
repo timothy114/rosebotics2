@@ -16,9 +16,9 @@ def main():
 
 def run_tests():
     """ Runs various tests. """
-    run_test_drive_system()
-    #run_test_touch_sensor()
-    #run_test_color_sensor()
+    # run_test_drive_system()
+    # run_test_touch_sensor()
+    run_test_color_sensor()
 
 def run_test_drive_system():
     """ Tests the  drive_system  of the Snatch3rRobot. """
@@ -119,5 +119,28 @@ def run_test_color_sensor():
         time.sleep(0.5)
         count = count + 1
 
+        # Test reading colors with light intensity < 30
+        robot.color_sensor.wait_until_intensity_is_less_than(30)
+
+
+        # Test reading colors with light intensity > 80
+        robot.color_sensor.wait_until_intensity_is_greater__than(80)
+
+        # Tests reading colors [green]
+        robot.color_sensor.wait_until_color_is(3)
+
+        # Tests reading colors [blue]
+        robot.color_sensor.wait_until_color_is(2)
+
+        # Tests reading colors [red]
+        robot.color_sensor.wait_until_color_is(5)
+
+        # Tests with one of the given colors is "read" [blue, green, red]
+        colors = [2, 3, 1]
+        robot.color_sensor.wait_until_color_is_one_of(colors)
+
+        # Tests with one of the given colors is "read" [yellow, red, white]
+        colors = [4, 5, 6]
+        robot.color_sensor.wait_until_color_is_one_of(colors)
 
 main()
