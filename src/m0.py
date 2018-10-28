@@ -135,7 +135,9 @@ def run_test_color_sensor():
         count = count + 1
 
         # Test reading colors with light intensity < 30
+        robot.drive_system.start_moving(5)
         robot.color_sensor.wait_until_intensity_is_less_than(30)
+        robot.drive_system.stop_moving()
 
 
         # Test reading colors with light intensity > 80
