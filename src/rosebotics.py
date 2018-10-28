@@ -178,7 +178,6 @@ class ArmAndClaw(object):
         self.touch_sensor = touch_sensor
         self.calibrate()  # Sets the motor's position to 0 at the DOWN position.
 
-
     def calibrate(self):
         """
         Raise the arm to until the touch sensor is pressed.
@@ -248,7 +247,6 @@ class ColorSensor(rb.ColorSensor):
         while True:
             if self.get_reflected_intensity() < reflected_light_intensity:
                 break
-
 
     def wait_until_intensity_is_greater_than(self, reflected_light_intensity):
         """
