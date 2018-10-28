@@ -69,24 +69,23 @@ def run_test_drive_system():
     print(robot.drive_system.left_wheel.get_degrees_spun())
     """
 
+    # Move forward for 1 second
+    # robot.drive_system.move_for_seconds(1, 100, 100)
 
-    #Move forward for 1 second
-    #robot.drive_system.move_for_seconds(1, 100, 100)
+    # Move forward 10 inches at 50% speed
+    # robot.drive_system.go_straight_inches(10,50)
 
-    #Move forward 10 inches at 50% speed
-    #robot.drive_system.go_straight_inches(10,50)
-
-    #Delay 5 seconds
-    #time.sleep(5)
+    # Delay 5 seconds
+    # time.sleep(5)
 
     # Move forward 5 inches
-    #robot.drive_system.go_straight_inches(5)
+    # robot.drive_system.go_straight_inches(5)
 
-    #Spin in place 90 degrees
-    #robot.drive_system.spin_in_place_degrees(90)
+    # Spin in place 90 degrees
+    # robot.drive_system.spin_in_place_degrees(90)
 
-    #Turn 180 degrees
-    #robot.drive_system.turn_degrees(90)
+    # Turn 180 degrees
+    # robot.drive_system.turn_degrees(90)
 
 
 def run_test_touch_sensor():
@@ -139,7 +138,6 @@ def run_test_color_sensor():
         robot.color_sensor.wait_until_intensity_is_less_than(30)
         robot.drive_system.stop_moving()
 
-
         # Test reading colors with light intensity > 80
         robot.color_sensor.wait_until_intensity_is_greater__than(80)
 
@@ -159,5 +157,6 @@ def run_test_color_sensor():
         # Tests with one of the given colors is "read" [yellow, red, white]
         colors = [4, 5, 6]
         robot.color_sensor.wait_until_color_is_one_of(colors)
+
 
 main()
