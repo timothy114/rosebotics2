@@ -243,7 +243,7 @@ class ColorSensor(rb.ColorSensor):
         light intensity is less than the given value (threshold), which should
         be between 0 (no light reflected) and 100 (maximum light reflected).
         """
-        # TODO.
+        # DONE
 
         while True:
             if self.get_reflected_intensity() < reflected_light_intensity:
@@ -256,7 +256,7 @@ class ColorSensor(rb.ColorSensor):
         light intensity is greater than the given value (threshold), which
         should be between 0 (no light reflected) and 100 (max light reflected).
         """
-        # TODO.
+        # DONE
 
         while True:
             if self.get_reflected_intensity() > reflected_light_intensity:
@@ -268,7 +268,7 @@ class ColorSensor(rb.ColorSensor):
         of what color it sees is the given color.
         The given color must be a Color (as defined above).
         """
-        # TODO.
+        # DONE
 
         while True:
             if self.get_color() == color:
@@ -280,7 +280,7 @@ class ColorSensor(rb.ColorSensor):
         of what color it sees is any one of the given sequence of colors.
         Each item in the sequence must be a Color (as defined above).
         """
-        # TODO.
+        # DONE
 
         while True:
             for k in range(len(colors)):
