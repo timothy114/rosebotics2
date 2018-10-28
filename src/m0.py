@@ -157,6 +157,5 @@ def run_test_color_sensor():
         # Tests with one of the given colors is "read" [yellow, red, white]
         colors = [4, 5, 6]
         robot.color_sensor.wait_until_color_is_one_of(colors)
-        
 
 main()
