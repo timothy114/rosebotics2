@@ -9,7 +9,6 @@ import time
 def follow_line(robot, duration):
     spin = 1
     for _ in range(duration):
-        robot.drive_system.start_moving()
         robot.color_sensor.wait_until_intensity_is_greater_than(95)
         robot.drive_system.start_moving()
         robot.color_sensor.wait_until_intensity_is_less_than(95)
