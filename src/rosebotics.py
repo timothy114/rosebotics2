@@ -136,7 +136,7 @@ class DriveSystem(object):
         # Always turns right
 
         # Conversion rate
-        conversion = 125 * (duty_cycle_percent/100)
+        conversion = 131.5 * (duty_cycle_percent/100)
 
         #Converting degrees to seconds
         seconds = degrees/conversion
@@ -162,7 +162,7 @@ class DriveSystem(object):
         #Always turn right
 
         # Conversion rate
-        conversion =  62.5 * (duty_cycle_percent / 100)
+        conversion =  65.75 * (duty_cycle_percent / 100)
 
         # Converting degrees to seconds
         seconds = degrees / conversion
