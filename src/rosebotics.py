@@ -187,6 +187,11 @@ class ArmAndClaw(object):
         """
         # TODO
 
+        while True:
+            self.raise_arm_and_close_claw()
+            if self.touch_sensor == 1:
+                self.lower_arm_and_open_claw()
+
     def raise_arm_and_close_claw(self):
         """
         Raise the arm (and hence close the claw).

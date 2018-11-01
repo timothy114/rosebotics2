@@ -19,10 +19,13 @@ def follow_line(robot):
                 if robot.color_sensor.get_reflected_intensity() >= (95):
                     spin = spin + 360
             spin = spin + (k+1)
+        if robot.touch_sensor.wait_until_pressed():
+            break
 
 def main():
     """ Runs YOUR specific part of the project """
     robot = rb.Snatch3rRobot()
+
     follow_line(robot)
 
 
