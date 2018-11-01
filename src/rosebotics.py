@@ -295,5 +295,6 @@ class InfraredSensorAsProximitySensor(object):
 class InfraredSensorAsBeaconSensor(object):
     """ Primary author of this class:  PUT_YOUR_NAME_HERE. """
 
+
 class InfraredSensorAsBeaconButtonSensor(object):
     """ Primary author of this class:  PUT_YOUR_NAME_HERE. """

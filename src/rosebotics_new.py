@@ -294,9 +294,8 @@ class TouchSensor(low_level_rb.TouchSensor):
     """
     A class for an EV3 touch sensor.
     Primary authors:  The ev3dev authors, David Mutchler, Dave Fisher,
-       their colleagues, the entire team, and PUT_YOUR_NAME_HERE.
+       their colleagues, the entire team, and Toluwa Nafiu.
     """
-
     def __init__(self, port=ev3.INPUT_1):
         super().__init__(port)
 
@@ -306,11 +305,15 @@ class TouchSensor(low_level_rb.TouchSensor):
 
     def wait_until_pressed(self):
         """ Waits (doing nothing new) until the touch sensor is pressed. """
-        # TODO.
+        touch = 0
+        while self.get_value() == touch:
+            time.sleep(0.1)
 
     def wait_until_released(self):
         """ Waits (doing nothing new) until the touch sensor is released. """
-        # TODO
+        touch = 1
+        while self.get_value() == touch:
+            time.sleep(0.1)
 
 
 class ColorSensor(low_level_rb.ColorSensor):
