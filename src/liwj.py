@@ -28,7 +28,7 @@ def beep_when_hand(robot):
     #This is for the part where when you stick your hand in front of the robot it stops and beeps
 
     drive = rb.DriveSystem
-    drive.start_moving(50,50)
+    drive.start_moving()
     sensor = rb.InfraredAsProximitySensor()
     dist = sensor.get_distance_to_nearest_object_in_inches()
     if dist <= 12:
