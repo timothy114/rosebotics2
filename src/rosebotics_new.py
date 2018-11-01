@@ -217,6 +217,16 @@ class DriveSystem(object):
         # TODO: Don't forget that the Wheel object's position begins wherever
         # TODO:   it last was, not necessarily 0.
 
+        conversion = (9.4 * (duty_cycle_percent / 100)) - (1 - (duty_cycle_percent / 100))
+        # Robot moves 9.4 inches in 1 second of full speed
+
+        # Converting inches to seconds
+        seconds = (inches / conversion)
+        print("Moving for seconds: " + str(seconds))
+
+        # Moving for ____ seconds
+        self.move_for_seconds(seconds, duty_cycle_percent, duty_cycle_percent)
+
     def spin_in_place_degrees(self,
                               degrees,
                               duty_cycle_percent=100,
@@ -236,6 +246,18 @@ class DriveSystem(object):
         # TODO: Don't forget that the Wheel object's position begins wherever
         # TODO:   it last was, not necessarily 0.
 
+        # Always turns right
+
+        # Conversion rate
+        conversion = 131.5 * (duty_cycle_percent / 100)
+
+        # Converting degrees to seconds
+        seconds = degrees / conversion
+        print("Turning for " + str(seconds) + " seconds")
+
+        # Turning the robot
+        self.move_for_seconds(seconds, duty_cycle_percent, -1 * duty_cycle_percent)
+
     def turn_degrees(self,
                      degrees,
                      duty_cycle_percent=100,
@@ -254,6 +276,18 @@ class DriveSystem(object):
         # TODO:   Assume that the conversion is linear with respect to speed.
         # TODO: Don't forget that the Wheel object's position begins wherever
         # TODO:   it last was, not necessarily 0.
+
+        # Always turn right
+
+        # Conversion rate
+        conversion = 65.75 * (duty_cycle_percent / 100)
+
+        # Converting degrees to seconds
+        seconds = degrees / conversion
+        print("Turning for " + str(seconds) + " seconds")
+
+        # Turning the robot
+        self.move_for_seconds(seconds, duty_cycle_percent, 0)
 
 
 class TouchSensor(low_level_rb.TouchSensor):
@@ -283,7 +317,7 @@ class ColorSensor(low_level_rb.ColorSensor):
     """
     A class for an EV3 color sensor.
     Primary authors:  The ev3dev authors, David Mutchler, Dave Fisher,
-       their colleagues, the entire team, and PUT_YOUR_NAME_HERE.
+       their colleagues, the entire team, and Jess Thuer.
     """
 
     def __init__(self, port=ev3.INPUT_3):
@@ -332,7 +366,11 @@ class ColorSensor(low_level_rb.ColorSensor):
         light intensity is less than the given value (threshold), which should
         be between 0 (no light reflected) and 100 (maximum light reflected).
         """
-        # TODO.
+        # DONE
+
+        while True:
+            if self.get_reflected_intensity() < reflected_light_intensity:
+                break
 
     def wait_until_intensity_is_greater_than(self, reflected_light_intensity):
         """
@@ -340,7 +378,11 @@ class ColorSensor(low_level_rb.ColorSensor):
         light intensity is greater than the given value (threshold), which
         should be between 0 (no light reflected) and 100 (max light reflected).
         """
-        # TODO.
+        # DONE
+
+        while True:
+            if self.get_reflected_intensity() > reflected_light_intensity:
+                break
 
     def wait_until_color_is(self, color):
         """
@@ -348,7 +390,11 @@ class ColorSensor(low_level_rb.ColorSensor):
         of what color it sees is the given color.
         The given color must be a Color (as defined above).
         """
-        # TODO.
+        # DONE
+
+        while True:
+            if self.get_color() == color:
+                break
 
     def wait_until_color_is_one_of(self, colors):
         """
@@ -356,7 +402,12 @@ class ColorSensor(low_level_rb.ColorSensor):
         of what color it sees is any one of the given sequence of colors.
         Each item in the sequence must be a Color (as defined above).
         """
-        # TODO.
+        # DONE
+
+        while True:
+            for k in range(len(colors)):
+                if colors[k] == self.get_color():
+                    break
 
 
 class Camera(object):

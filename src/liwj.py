@@ -22,11 +22,15 @@ def polygon(robot,num,length,speed=100):
 
     for i in range(num):
         robot.drive_system.go_straight_inches(length,speed)
-        robot.drive_system.spin_in_place_degrees(angle,speed)
+        robot.drive_system.spin_in_place_degrees((180-angle),speed)
 
 def main():
     """ Runs YOUR specific part of the project """
     robot = rb.Snatch3rRobot()
     polygon(robot,5,20)
+    time.sleep(2)
+    polygon(robot,3,20)
+    time.sleep(2)
+    polygon(robot,6,15)
 
 main()
