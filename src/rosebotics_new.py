@@ -2,10 +2,10 @@
   Capstone Project.
   This module contains high-level, general-purpose methods for a Snatch3r robot.
 
-  Team members:  PUT_YOUR_NAMES_HERE.
+  Team members:  Jess Thuer, Toluwa Nafiu, and Tim Li
   Fall term, 2018-2019.
 """
-# TODO: Put your names in the above.
+# DONE Put your names in the above.
 # TODO: Do the TODO's below.
 # TODO: Augment this module as appropriate, being sure to always
 # TODO:   ** coordinate with your teammates ** in doing so.
@@ -147,10 +147,10 @@ class DriveSystem(object):
     """
     A class for driving (moving) the robot.
     Primary authors:  The ev3dev authors, David Mutchler, Dave Fisher,
-       their colleagues, the entire team, and PUT_YOUR_NAME_HERE.
+       their colleagues, the entire team, and Timothy Li.
     """
 
-    # TODO: In the above line, put the name of the primary author of this class.
+    # DONE In the above line, put the name of the primary author of this class.
 
     def __init__(self,
                  left_wheel_port=ev3.OUTPUT_B,
