@@ -4,6 +4,7 @@
 """
 
 import rosebotics_new as rb
+import ev3dev as ev3
 import time
 
 
@@ -15,7 +16,10 @@ def main():
 
     camera = rb.Camera()
     blob_area = camera.get_biggest_blob().get_area()
-
+    if blob_area >= 600:
+        ev3.Sound.beep(1).wait(1)
+    else:
+        camera.get_biggest_blob()
 
 
 main()
