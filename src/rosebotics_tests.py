@@ -1,11 +1,10 @@
 """
   Capstone Project.  Code for testing basics.
   Author:  David Mutchler, based on work by Dave Fisher and others.
-  READ and RUN this module but ** DO NOT MODIFY IT. **
   Fall term, 2018-2019.
 """
 
-import rosebotics as rb
+import rosebotics_new as rb
 import time
 
 
@@ -16,31 +15,65 @@ def main():
 
 def run_tests():
     """ Runs various tests. """
+    # run_test_ir()
     run_test_drive_system()
     # run_test_touch_sensor()
     # run_test_color_sensor()
+    run_test_arm()
+
+
+def run_test_arm():
+    robot = rb.Snatch3rRobot()
+    robot.arm.calibrate()
+    time.sleep(1)
+    robot.arm.raise_arm_and_close_claw()
+    time.sleep(1)
+    robot.arm.move_arm_to_position(300)
+
+
+def run_test_ir():
+    robot = rb.Snatch3rRobot()
+
+    while True:
+        # TODO: Print the value of the following, one at a time. For each,
+        # TODO:   do the appropriate user actions (e.g. try pressing a button
+        # TODO:   on the Beacon and see what the beacon_button_sensor produces).
+        # TODO:   Discover what values the sensors produce in which situations.
+        #    touch_sensor
+        #    color_sensor
+        #    camera
+        #    proximity_sensor
+        #    beacon_sensor  NOT YET IMPLEMENTED
+        #    beacon_button_sensor  NOT YET IMPLEMENTED
+        print("Touch sensor:",
+              robot.touch_sensor.get_value(),
+              robot.touch_sensor.is_pressed())
+
+        character = input(
+            "Press the ENTER (return) key to continue, or q to quit: ")
+        if character == "q":
+            break
 
 
 def run_test_drive_system():
     """ Tests the  drive_system  of the Snatch3rRobot. """
     robot = rb.Snatch3rRobot()
 
-    """
     print()
     print("Testing the  drive_system  of the robot.")
     print("Move at (20, 50) - that is, veer left slowly")
-    robot.drive_system.start_moving(20, 10)
+    robot.drive_system.start_moving(20, 50)
     time.sleep(2)
     robot.drive_system.stop_moving()
 
     print("Left/right wheel positions:",
           robot.drive_system.left_wheel.get_degrees_spun(),
           robot.drive_system.right_wheel.get_degrees_spun())
-    
+
     time.sleep(1)
     print()
-    print("Spin clockwise at half speed for 1 seconds")
-    robot.drive_system.move_for_seconds(1, 100, -100)
+    print("Spin clockwise at half speed for 2.5 seconds")
+    robot.drive_system.move_for_seconds(2.5, 50, -50)
 
     print("Left/right wheel positions:",
           robot.drive_system.left_wheel.get_degrees_spun(),
@@ -54,45 +87,17 @@ def run_test_drive_system():
     print("Move forward at full speed for 1.5 seconds, coast to stop")
     robot.drive_system.start_moving()
     time.sleep(1.5)
-    robot.drive_system.stop_moving(rb.StopAction.COAST)
+    robot.drive_system.stop_moving(rb.StopAction.COAST.value)
 
     print("Left/right wheel positions:",
           robot.drive_system.left_wheel.get_degrees_spun(),
           robot.drive_system.right_wheel.get_degrees_spun())
-
-    """
-
-    """
-    while robot.drive_system.left_wheel.get_degrees_spun() < 360:
-        robot.drive_system.move_for_seconds(0.001, 100, 100)
-    print("Wheel spun 360 degrees: ")
-    print(robot.drive_system.left_wheel.get_degrees_spun())
-    """
-
-    # Move forward for 1 second
-    # robot.drive_system.move_for_seconds(1, 100, 100)
-
-    # Move forward 10 inches at 50% speed
-    # robot.drive_system.go_straight_inches(10,50)
-
-    # Delay 5 seconds
-    # time.sleep(5)
-
-    # Move forward 5 inches
-    # robot.drive_system.go_straight_inches(5)
-
-    # Spin in place 90 degrees
-    # robot.drive_system.spin_in_place_degrees(90)
-
-    # Turn 180 degrees
-    # robot.drive_system.turn_degrees(90)
 
 
 def run_test_touch_sensor():
     """ Tests the  touch_sensor  of the Snatch3rRobot. """
     robot = rb.Snatch3rRobot()
 
-    """
     print()
     print("Testing the  touch_sensor  of the robot.")
     print("Repeatedly press and release the touch sensor.")
@@ -104,12 +109,6 @@ def run_test_touch_sensor():
               "Touch sensor value is: ", robot.touch_sensor.get_value())
         time.sleep(0.5)
         count = count + 1
-    """
-    # Wait until the touch sensor is pressed
-    robot.touch_sensor.wait_until_pressed()
-
-    # Wait until the touch sensor is released
-    robot.touch_sensor.wait_until_released()
 
 
 def run_test_color_sensor():
@@ -132,31 +131,6 @@ def run_test_color_sensor():
               "{:4}".format(robot.color_sensor.get_reflected_intensity()))
         time.sleep(0.5)
         count = count + 1
-
-        # Test reading colors with light intensity < 30
-        robot.drive_system.start_moving(5)
-        robot.color_sensor.wait_until_intensity_is_less_than(30)
-        robot.drive_system.stop_moving()
-
-        # Test reading colors with light intensity > 80
-        robot.color_sensor.wait_until_intensity_is_greater__than(80)
-
-        # Tests reading colors [green]
-        robot.color_sensor.wait_until_color_is(3)
-
-        # Tests reading colors [blue]
-        robot.color_sensor.wait_until_color_is(2)
-
-        # Tests reading colors [red]
-        robot.color_sensor.wait_until_color_is(5)
-
-        # Tests with one of the given colors is "read" [blue, green, red]
-        colors = [2, 3, 1]
-        robot.color_sensor.wait_until_color_is_one_of(colors)
-
-        # Tests with one of the given colors is "read" [yellow, red, white]
-        colors = [4, 5, 6]
-        robot.color_sensor.wait_until_color_is_one_of(colors)
 
 
 main()
