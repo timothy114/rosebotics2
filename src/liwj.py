@@ -4,7 +4,7 @@
 """
 
 import rosebotics_new as rb
-import time
+from ev3dev import ev3
 
 #Making the polygon one
 
@@ -28,14 +28,19 @@ def beep_when_hand(robot):
     #This is for the part where when you stick your hand in front of the robot it stops and beeps
 
     drive = rb.DriveSystem
-    drive.start_moving()
+    robot.drive_system.start_moving()
     print("Driving")
-    sensor = rb.InfraredAsProximitySensor()
-    dist = sensor.get_distance_to_nearest_object_in_inches()
-    if dist <= 12:
-        drive.stop_moving()
-        print("Object detected that is less than 12 inches away")
-
+    sensor = rb.InfraredAsProximitySensor(ev3.INPUT_4)
+    while(True):
+        #Get disstance
+        dist = sensor.get_distance_to_nearest_object_in_inches()
+        print(dist)
+        #Stopping if 12 inches away
+        if dist <= 12:
+            robot.drive_system.stop_moving()
+            print("Object detected that is less than 12 inches away")
+            ev3.Sound.beep(1)
+            break
 
 def main():
     """ Runs YOUR specific part of the project """
