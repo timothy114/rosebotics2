@@ -25,7 +25,6 @@ def follow_line(robot):
 def main():
     """ Runs YOUR specific part of the project """
     robot = rb.Snatch3rRobot()
-
     follow_line(robot)
 
 
