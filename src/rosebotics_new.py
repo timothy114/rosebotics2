@@ -217,6 +217,16 @@ class DriveSystem(object):
         # TODO: Don't forget that the Wheel object's position begins wherever
         # TODO:   it last was, not necessarily 0.
 
+        conversion = (9.4 * (duty_cycle_percent / 100)) - (1 - (duty_cycle_percent / 100))
+        # Robot moves 9.4 inches in 1 second of full speed
+
+        # Converting inches to seconds
+        seconds = (inches / conversion)
+        print("Moving for seconds: " + str(seconds))
+
+        # Moving for ____ seconds
+        self.move_for_seconds(seconds, duty_cycle_percent, duty_cycle_percent)
+
     def spin_in_place_degrees(self,
                               degrees,
                               duty_cycle_percent=100,
@@ -236,6 +246,18 @@ class DriveSystem(object):
         # TODO: Don't forget that the Wheel object's position begins wherever
         # TODO:   it last was, not necessarily 0.
 
+        # Always turns right
+
+        # Conversion rate
+        conversion = 131.5 * (duty_cycle_percent / 100)
+
+        # Converting degrees to seconds
+        seconds = degrees / conversion
+        print("Turning for " + str(seconds) + " seconds")
+
+        # Turning the robot
+        self.move_for_seconds(seconds, duty_cycle_percent, -1 * duty_cycle_percent)
+
     def turn_degrees(self,
                      degrees,
                      duty_cycle_percent=100,
@@ -254,6 +276,18 @@ class DriveSystem(object):
         # TODO:   Assume that the conversion is linear with respect to speed.
         # TODO: Don't forget that the Wheel object's position begins wherever
         # TODO:   it last was, not necessarily 0.
+
+        # Always turn right
+
+        # Conversion rate
+        conversion = 65.75 * (duty_cycle_percent / 100)
+
+        # Converting degrees to seconds
+        seconds = degrees / conversion
+        print("Turning for " + str(seconds) + " seconds")
+
+        # Turning the robot
+        self.move_for_seconds(seconds, duty_cycle_percent, 0)
 
 
 class TouchSensor(low_level_rb.TouchSensor):
