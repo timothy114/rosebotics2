@@ -317,7 +317,7 @@ class ColorSensor(low_level_rb.ColorSensor):
     """
     A class for an EV3 color sensor.
     Primary authors:  The ev3dev authors, David Mutchler, Dave Fisher,
-       their colleagues, the entire team, and PUT_YOUR_NAME_HERE.
+       their colleagues, the entire team, and Jess Thuer.
     """
 
     def __init__(self, port=ev3.INPUT_3):
