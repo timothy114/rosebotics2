@@ -8,7 +8,7 @@ import time
 
 def follow_line(robot):
     while True:
-        spin = 1
+        spin = 30
         robot.color_sensor.wait_until_intensity_is_greater_than(95)
         robot.drive_system.start_moving()
         robot.color_sensor.wait_until_intensity_is_less_than(95)
@@ -18,7 +18,7 @@ def follow_line(robot):
                 robot.drive_system.spin_in_place_degrees(spin)
                 if robot.color_sensor.get_reflected_intensity() >= (95):
                     spin = spin + 360
-            spin = spin + (k+1)
+                spin = spin * (-k+2)
         if robot.touch_sensor.wait_until_pressed():
             break
 
