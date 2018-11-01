@@ -32,8 +32,10 @@ def beep_when_hand(robot):
     print("Driving")
     sensor = rb.InfraredAsProximitySensor(ev3.INPUT_4)
     while(True):
+        #Get disstance
         dist = sensor.get_distance_to_nearest_object_in_inches()
         print(dist)
+        #Stopping if 12 inches away
         if dist <= 12:
             robot.drive_system.stop_moving()
             print("Object detected that is less than 12 inches away")
