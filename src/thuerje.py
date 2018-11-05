@@ -217,7 +217,7 @@ def sauce(window, value):
     if value == 2:
         circle.fill_color = 'brown'
     if value == 3:
-        circle.fill_color = 'grey'
+        circle.fill_color = 'green'
     if value == 4:
         circle.fill_color = 'white'
     circle.attach_to(window)
