@@ -43,6 +43,9 @@ def beep_when_hand(robot):
             ev3.Sound.beep(1)
             break
 
+def brick():
+
+
 def main():
     """ Runs YOUR specific part of the project """
     robot = rb.Snatch3rRobot()
