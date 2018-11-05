@@ -210,7 +210,6 @@ class ArmAndClaw(object):
         """ Spin the arm's motor until it reaches the given position. """
         # TODO
 
-
 class TouchSensor(rb.TouchSensor):
     """ Primary author of this class:  Toluwa Nafiu. """
 
