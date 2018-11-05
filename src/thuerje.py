@@ -7,7 +7,7 @@ import rosebotics as rb
 import time
 import tkinter
 from tkinter import ttk
-import Rosegraphics as rg
+import rosegraphics as rg
 
 def follow_line(robot):
     while True:
