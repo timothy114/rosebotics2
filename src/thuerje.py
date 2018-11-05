@@ -5,6 +5,9 @@
 
 import rosebotics as rb
 import time
+import tkinter
+from tkinter import ttk
+import Rosegraphics as rg
 
 def follow_line(robot):
     while True:
@@ -23,10 +26,14 @@ def follow_line(robot):
         if robot.touch_sensor.wait_until_pressed():
             break
 
+def build_your_own_pizza(robot):
+    window = rg.W
+
 def main():
     """ Runs YOUR specific part of the project """
     robot = rb.Snatch3rRobot()
     follow_line(robot)
+    build_your_own_pizza(robot)
 
 
 main()

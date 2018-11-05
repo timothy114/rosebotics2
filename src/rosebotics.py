@@ -201,7 +201,7 @@ class ArmAndClaw(object):
 
     def lower_arm_and_open_claw(self):
         """
-        Raise the arm (and hence close the claw).
+        Lower the arm (and hence close the claw).
         Stop when the touch sensor is pressed.
         """
         # TODO
