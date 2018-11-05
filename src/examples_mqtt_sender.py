@@ -15,6 +15,7 @@ def main():
     while True:
         s = input("Enter a message: ")
         mqtt_client.send_message("say_it", [s])
+        # send_message takes some method name (in this case 'say_it') and the input for it (in this case, 's')
 
 
 main()
