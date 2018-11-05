@@ -24,9 +24,9 @@ def camera_beep():
     camera = rb.Camera()
     blob_area = camera.get_biggest_blob().get_area()
     if blob_area >= 600:
-        ev3.Sound.beep(1).wait(1)
+        ev3.Sound.beep().wait()
     else:
-        camera.get_biggest_blob()
+        time.sleep(1)
 
 
 main()
