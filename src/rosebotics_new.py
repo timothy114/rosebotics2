@@ -5,7 +5,7 @@
   Team members:  Timothy Li, Jess Thuer, Toluwa Nafiu.
   Fall term, 2018-2019.
 """
-# TODO: Put your names in the above.
+# DONE Put your names in the above.
 # TODO: Do the TODO's below.
 # TODO: Augment this module as appropriate, being sure to always
 # TODO:   ** coordinate with your teammates ** in doing so.
@@ -715,9 +715,9 @@ class ArmAndClaw(object):
     """
     A class for the arm and its associated claw.
     Primary authors:  The ev3dev authors, David Mutchler, Dave Fisher,
-    their colleagues, the entire team, and PUT_YOUR_NAME_HERE.
+    their colleagues, the entire team, and Jess Thuer.
     """
-    # TODO: In the above line, put the name of the primary author of this class.
+    # DONE In the above line, put the name of the primary author of this class.
 
     def __init__(self, touch_sensor, port=ev3.OUTPUT_A):
         # The ArmAndClaw's  motor  is not really a Wheel, of course,
@@ -739,19 +739,22 @@ class ArmAndClaw(object):
         again at a reasonable speed. Then set the motor's position to 0.
         (Hence, 0 means all the way DOWN and 14.2 * 360 means all the way UP).
         """
-        # TODO: Do this as STEP 2 of implementing this class.
+        # DONE Do this as STEP 2 of implementing this class.
 
-        arm = rb.Wheel(self.motor)
+        import math
+        arm = low_level_rb.Wheel(self.motor)
         while True:
-            arm.start_spinning(50)
+            arm.start_spinning(100)
             if self.touch_sensor.get_value() == 1:
                 arm.stop_spinning()
                 break
+        arm.reset_degrees_spun()
         while True:
-            arm.start_spinning(-50)
-            if self.touch_sensor.get_value() == 0:
+            arm.start_spinning(-100)
+            if math.fabs(arm.get_degrees_spun()) >= (14.2*360):
                 arm.stop_spinning()
                 break
+        arm.reset_degrees_spun()
 
 
     def raise_arm_and_close_claw(self):
