@@ -741,6 +741,19 @@ class ArmAndClaw(object):
         """
         # TODO: Do this as STEP 2 of implementing this class.
 
+        arm = rb.Wheel(self.motor)
+        while True:
+            arm.start_spinning(50)
+            if self.touch_sensor.get_value() == 1:
+                arm.stop_spinning()
+                break
+        while True:
+            arm.start_spinning(-50)
+            if self.touch_sensor.get_value() == 0:
+                arm.stop_spinning()
+                break
+
+
     def raise_arm_and_close_claw(self):
         """
         Raise the arm (and hence close the claw), by making this ArmAndClaw
