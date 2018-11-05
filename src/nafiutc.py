@@ -29,4 +29,8 @@ def camera_beep():
         time.sleep(1)
 
 
+def follow_line_color(color):
+    print("follow " + color + "line")
+
+
 main()
