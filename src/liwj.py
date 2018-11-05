@@ -29,21 +29,24 @@ def beep_when_hand(robot):
     #This is for the part where when you stick your hand in front of the robot it stops and beeps
 
     drive = rb.DriveSystem
-    robot.drive_system.start_moving()
+    #robot.drive_system.start_moving()
     print("Driving")
     sensor = rb.InfraredAsProximitySensor(ev3.INPUT_4)
     while(True):
         #Get disstance
         dist = sensor.get_distance_to_nearest_object_in_inches()
         print(dist)
-        #Stopping if 12 inches away
-        if dist <= 12:
-            robot.drive_system.stop_moving()
-            print("Object detected that is less than 12 inches away")
-            ev3.Sound.beep(1)
+        #Stopping if 15 inches away
+        if dist <= 15:
+            #robot.drive_system.stop_moving()
+            print("Object detected that is less than 15 inches away")
+            if dist >= 9:
+                print("Object detected that is more than 9 inches away")
+                ev3.Sound.beep(1)
             break
 
 def brick():
+
 
 
 def main():
