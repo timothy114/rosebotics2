@@ -9,7 +9,7 @@ import time
 def follow_line(robot):
     while True:
         while robot.touch_sensor.get_value() == 0:
-            spin = 30
+            spin = 5
             robot.color_sensor.wait_until_intensity_is_greater_than(95)
             robot.drive_system.start_moving()
             robot.color_sensor.wait_until_intensity_is_less_than(95)
