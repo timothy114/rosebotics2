@@ -28,5 +28,5 @@ def camera_beep():
     else:
         camera.get_biggest_blob()
 
-    
+
 main()
