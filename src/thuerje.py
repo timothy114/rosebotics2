@@ -32,7 +32,7 @@ def build_your_own_pizza():
     pizza_window = rg.RoseWindow(500, 500, 'Pizza Time!')
     Pizza = pizza()
     window = tkinter.Tk()
-    frame = ttk.Frame(window, padding=25)
+    frame = ttk.Frame(window, padding = 25)
     frame.grid()
 
     crust_button = ttk.Button(frame, text='Crust')
@@ -51,6 +51,10 @@ def build_your_own_pizza():
     toppings_button['command'] = (lambda: Pizza.toppings_frame(pizza_window))
     toppings_button.grid()
 
+    # reset_button = ttk.Button(frame, text='Reset')
+    # reset_button['command'] = (lambda: Pizza.reset(pizza_window))
+    # reset_button.grid()
+
     pizza_window.close_on_mouse_click()
     window.mainloop()
 
@@ -58,6 +62,10 @@ class pizza(object):
     def __init__(self):
         self.counter = 0
         self.ratio_number = 0
+
+    # def reset(self, pizza_window):
+    #     self.ratio_number = 0
+    #     pizza_window.__reduce__()
 
     def crust_frame(self, pizza_window):
         window = tkinter.Tk()
@@ -220,10 +228,27 @@ class pizza(object):
             window.render()
         self.counter = self.counter + 1
 
+    def cheese(self, window, value):
+        if self.counter == 1:
+            point = rg.Point(250, 250)
+            radius = (self.ratio_number) - 20
+            circle = rg.Circle(point, radius)
+        #     if value == 1:
+        #         circle.fill_color = 'red'
+        #     if value == 2:
+        #         circle.fill_color = 'brown'
+        #     if value == 3:
+        #         circle.fill_color = 'green'
+        #     if value == 4:
+        #         circle.fill_color = 'white'
+        #     circle.attach_to(window)
+        #     window.render()
+        # self.counter = self.counter + 1
+
     def sauce(self, window, value):
         if self.counter == 1:
             point = rg.Point(250, 250)
-            radius = (self.ratio_number) - 10
+            radius = (self.ratio_number) - 15
             circle = rg.Circle(point, radius)
             if value == 1:
                 circle.fill_color = 'red'
@@ -237,6 +262,21 @@ class pizza(object):
             window.render()
         self.counter = self.counter + 1
 
+    def meats(self, window, value):
+        if self.counter > 1:
+            point = rg.Point(250, 250)
+            radius = (self.ratio_number) - 15
+            # if value == 1:
+            #     object = ...
+            # if value == 2:
+            #     circle.fill_color = 'brown'
+            # if value == 3:
+            #     circle.fill_color = 'green'
+            # if value == 4:
+            #     circle.fill_color = 'white'
+            circle.attach_to(window)
+            window.render()
+        self.counter = self.counter + 1
 
 
 
