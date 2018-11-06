@@ -743,11 +743,7 @@ class ArmAndClaw(object):
 
         import math
         arm = low_level_rb.Wheel(self.motor)
-        while True:
-            arm.start_spinning(100)
-            if self.touch_sensor.get_value() == 1:
-                arm.stop_spinning()
-                break
+        self.raise_arm_and_close_claw()
         arm.reset_degrees_spun()
         while True:
             arm.start_spinning(-100)
@@ -756,7 +752,6 @@ class ArmAndClaw(object):
                 break
         arm.reset_degrees_spun()
 
-
     def raise_arm_and_close_claw(self):
         """
         Raise the arm (and hence close the claw), by making this ArmAndClaw
@@ -764,11 +759,32 @@ class ArmAndClaw(object):
         Positive speeds make the arm go UP; negative speeds make it go DOWN.
         Stop when the touch sensor is pressed.
         """
-        # TODO: Do this as STEP 1 of implementing this class.
+        # DONE Do this as STEP 1 of implementing this class.
+
+        arm = low_level_rb.Wheel(self.motor)
+        while True:
+            arm.start_spinning(100)
+            if self.touch_sensor.get_value() == 1:
+                arm.stop_spinning()
+                break
 
     def move_arm_to_position(self, position):
         """
         Spin the arm's motor until it reaches the given position.
         Move at a reasonable speed.
         """
-        # TODO: Do this as STEP 3 of implementing this class.
+        # DONE Do this as STEP 3 of implementing this class.
+
+        arm = low_level_rb.Wheel(self.motor)
+        if arm.get_degrees_spun() < position:
+            while True:
+                arm.start_spinning(100)
+                if arm.get_degrees_spun() >= position:
+                    arm.stop_spinning()
+                    break
+        else:
+            while True:
+                arm.start_spinning(-100)
+                if arm.get_degrees_spun() <= position:
+                    arm.stop_spinning()
+                    break
