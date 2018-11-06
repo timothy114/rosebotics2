@@ -30,7 +30,7 @@ def follow_line(robot):
 
 def build_your_own_pizza():
     pizza_window = rg.RoseWindow(500, 500, 'Pizza Time!')
-    Pizza = pizza(pizza_window)
+    Pizza = pizza()
     window = tkinter.Tk()
     frame = ttk.Frame(window, padding=25)
     frame.grid()
@@ -55,10 +55,9 @@ def build_your_own_pizza():
     window.mainloop()
 
 class pizza(object):
-    def __init__(self, pizza_window):
+    def __init__(self):
         self.counter = 0
         self.ratio_number = 0
-        self.pw = pizza_window
 
     def crust_frame(self, pizza_window):
         window = tkinter.Tk()
@@ -203,38 +202,40 @@ class pizza(object):
         mushroom_button.grid()
 
     def crust(self, window, value):
-        point = rg.Point(250, 250)
-        radius = 0
-        if value == 1:
-            radius = 100
-            self.ratio_number = 100
-        if value == 2:
-            radius = 130
-            self.ratio_number = 130
-        if value == 3:
-            radius = 150
-            self.ratio_number = 150
-        circle = rg.Circle(point, radius)
-        circle.fill_color = 'tan'
-        circle.attach_to(window)
-        window.render()
+        if self.counter == 0:
+            point = rg.Point(250, 250)
+            radius = 0
+            if value == 1:
+                radius = 100
+                self.ratio_number = 100
+            if value == 2:
+                radius = 130
+                self.ratio_number = 130
+            if value == 3:
+                radius = 150
+                self.ratio_number = 150
+            circle = rg.Circle(point, radius)
+            circle.fill_color = 'tan'
+            circle.attach_to(window)
+            window.render()
+        self.counter = self.counter + 1
 
     def sauce(self, window, value):
-        # if self.ratio_number == 0:
-        #     return
-        point = rg.Point(250, 250)
-        radius = (self.ratio_number) - 10
-        circle = rg.Circle(point, radius)
-        if value == 1:
-            circle.fill_color = 'red'
-        if value == 2:
-            circle.fill_color = 'brown'
-        if value == 3:
-            circle.fill_color = 'green'
-        if value == 4:
-            circle.fill_color = 'white'
-        circle.attach_to(window)
-        window.render()
+        if self.counter == 1:
+            point = rg.Point(250, 250)
+            radius = (self.ratio_number) - 10
+            circle = rg.Circle(point, radius)
+            if value == 1:
+                circle.fill_color = 'red'
+            if value == 2:
+                circle.fill_color = 'brown'
+            if value == 3:
+                circle.fill_color = 'green'
+            if value == 4:
+                circle.fill_color = 'white'
+            circle.attach_to(window)
+            window.render()
+        self.counter = self.counter + 1
 
 
 
