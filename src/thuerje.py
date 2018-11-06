@@ -62,6 +62,8 @@ class pizza(object):
     def __init__(self):
         self.counter = 0
         self.ratio_number = 0
+        self.num = 0
+        self.total = 0
 
     # def reset(self, pizza_window):
     #     self.ratio_number = 0
@@ -209,6 +211,7 @@ class pizza(object):
         mushroom_button['command'] = (lambda: self.vegetables(pizza_window, 8))
         mushroom_button.grid()
 
+
     def crust(self, window, value):
         if self.counter == 0:
             point = rg.Point(250, 250)
@@ -216,34 +219,20 @@ class pizza(object):
             if value == 1:
                 radius = 100
                 self.ratio_number = 100
+                self.num = 1
             if value == 2:
                 radius = 130
                 self.ratio_number = 130
+                self.num = 2
             if value == 3:
                 radius = 150
                 self.ratio_number = 150
+                self.num = 3
             circle = rg.Circle(point, radius)
             circle.fill_color = 'tan'
             circle.attach_to(window)
             window.render()
-        self.counter = self.counter + 1
-
-    def cheese(self, window, value):
-        if self.counter == 1:
-            point = rg.Point(250, 250)
-            radius = (self.ratio_number) - 20
-            circle = rg.Circle(point, radius)
-        #     if value == 1:
-        #         circle.fill_color = 'red'
-        #     if value == 2:
-        #         circle.fill_color = 'brown'
-        #     if value == 3:
-        #         circle.fill_color = 'green'
-        #     if value == 4:
-        #         circle.fill_color = 'white'
-        #     circle.attach_to(window)
-        #     window.render()
-        # self.counter = self.counter + 1
+            self.counter = self.counter + 1
 
     def sauce(self, window, value):
         if self.counter == 1:
@@ -260,12 +249,27 @@ class pizza(object):
                 circle.fill_color = 'white'
             circle.attach_to(window)
             window.render()
-        self.counter = self.counter + 1
+            self.counter = self.counter + 1
+
+    def cheese(self, window, value):
+        if self.counter == 2:
+            point = rg.Point(250, 250)
+            radius = (self.ratio_number) - 20
+            circle = rg.Circle(point, radius)
+            if value == 2:
+                circle.fill_color = 'orange'
+            if value == 3:
+                circle.fill_color = 'light blue'
+            else:
+                circle.fill_color = 'light grey'
+            circle.attach_to(window)
+            window.render()
+            self.counter = self.counter + 1
 
     def meats(self, window, value):
-        if self.counter > 1:
+        if self.counter >= 3:
             point = rg.Point(250, 250)
-            radius = (self.ratio_number) - 15
+            radius = (self.ratio_number) - 25
             # if value == 1:
             #     object = ...
             # if value == 2:
@@ -276,7 +280,8 @@ class pizza(object):
             #     circle.fill_color = 'white'
             circle.attach_to(window)
             window.render()
-        self.counter = self.counter + 1
+            radius = (self.ratio_number) - (25+50)
+            self.total = self.total + 1
 
 
 
