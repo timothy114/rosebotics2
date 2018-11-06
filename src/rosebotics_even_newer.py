@@ -2,10 +2,10 @@
   Capstone Project.
   This module contains high-level, general-purpose methods for a Snatch3r robot.
 
-  Team members:  PUT_YOUR_NAMES_HERE.
+  Team members:  Jess Thuer, Toluwa Nafiu, and Timothy Li
   Fall term, 2018-2019.
 """
-# TODO: Put your names in the above.
+# DONE Put your names in the above.
 # TODO: Do the TODO's below.
 # TODO: Augment this module as appropriate, being sure to always
 # TODO:   ** coordinate with your teammates ** in doing so.
@@ -282,7 +282,7 @@ class ColorSensor(low_level_rb.ColorSensor):
     """
     A class for an EV3 color sensor.
     Primary authors:  The ev3dev authors, David Mutchler, Dave Fisher,
-       their colleagues, the entire team, and PUT_YOUR_NAME_HERE.
+       their colleagues, the entire team, and Jess Thuer
     """
 
     def __init__(self, port=ev3.INPUT_3):
@@ -331,7 +331,11 @@ class ColorSensor(low_level_rb.ColorSensor):
         light intensity is less than the given value (threshold), which should
         be between 0 (no light reflected) and 100 (maximum light reflected).
         """
-        # TODO.
+        # DONE
+
+        while True:
+            if self.get_reflected_intensity() < reflected_light_intensity:
+                break
 
     def wait_until_intensity_is_greater_than(self, reflected_light_intensity):
         """
@@ -339,7 +343,11 @@ class ColorSensor(low_level_rb.ColorSensor):
         light intensity is greater than the given value (threshold), which
         should be between 0 (no light reflected) and 100 (max light reflected).
         """
-        # TODO.
+        # DONE
+
+        while True:
+            if self.get_reflected_intensity() > reflected_light_intensity:
+                break
 
     def wait_until_color_is(self, color):
         """
@@ -347,7 +355,11 @@ class ColorSensor(low_level_rb.ColorSensor):
         of what color it sees is the given color.
         The given color must be a Color (as defined above).
         """
-        # TODO.
+        # DONE
+
+        while True:
+            if self.get_color() == color:
+                break
 
     def wait_until_color_is_one_of(self, colors):
         """
@@ -355,7 +367,12 @@ class ColorSensor(low_level_rb.ColorSensor):
         of what color it sees is any one of the given sequence of colors.
         Each item in the sequence must be a Color (as defined above).
         """
-        # TODO.
+        # DONE
+
+        while True:
+            for k in range(len(colors)):
+                if colors[k] == self.get_color():
+                    break
 
 
 class Camera(object):
@@ -656,7 +673,7 @@ class ArmAndClaw(object):
     """
     A class for the arm and its associated claw.
     Primary authors:  The ev3dev authors, David Mutchler, Dave Fisher,
-    their colleagues, the entire team, and PUT_YOUR_NAME_HERE.
+    their colleagues, the entire team, and Jess Thuer
     """
     # TODO: In the above line, put the name of the primary author of this class.
 
@@ -680,7 +697,18 @@ class ArmAndClaw(object):
         again at a reasonable speed. Then set the motor's position to 0.
         (Hence, 0 means all the way DOWN and 14.2 * 360 means all the way UP).
         """
-        # TODO: Do this as STEP 2 of implementing this class.
+        # DONE Do this as STEP 2 of implementing this class.
+
+        import math
+        arm = low_level_rb.Wheel(self.motor)
+        self.raise_arm_and_close_claw()
+        arm.reset_degrees_spun()
+        while True:
+            arm.start_spinning(-100)
+            if math.fabs(arm.get_degrees_spun()) >= (14.2*360):
+                arm.stop_spinning()
+                break
+        arm.reset_degrees_spun()
 
     def raise_arm_and_close_claw(self):
         """
@@ -689,11 +717,32 @@ class ArmAndClaw(object):
         Positive speeds make the arm go UP; negative speeds make it go DOWN.
         Stop when the touch sensor is pressed.
         """
-        # TODO: Do this as STEP 1 of implementing this class.
+        # DONE Do this as STEP 1 of implementing this class.
+
+        arm = low_level_rb.Wheel(self.motor)
+        while True:
+            arm.start_spinning(100)
+            if self.touch_sensor.get_value() == 1:
+                arm.stop_spinning()
+                break
 
     def move_arm_to_position(self, position):
         """
         Spin the arm's motor until it reaches the given position.
         Move at a reasonable speed.
         """
-        # TODO: Do this as STEP 3 of implementing this class.
+        # DONE Do this as STEP 3 of implementing this class.
+
+        arm = low_level_rb.Wheel(self.motor)
+        if arm.get_degrees_spun() < position:
+            while True:
+                arm.start_spinning(100)
+                if arm.get_degrees_spun() >= position:
+                    arm.stop_spinning()
+                    break
+        else:
+            while True:
+                arm.start_spinning(-100)
+                if arm.get_degrees_spun() <= position:
+                    arm.stop_spinning()
+                    break
