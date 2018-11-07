@@ -779,3 +779,4 @@ class ArmAndClaw(object):
                 if self.motor.get_degrees_spun() <= position:
                     self.motor.stop_spinning()
                     break
+                    
