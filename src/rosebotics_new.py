@@ -705,12 +705,12 @@ class BrickButtonSensor(object):
         return self._underlying_sensor.backspace
 
 
-class ArmAndClaw(object):
-    """
+"""class ArmAndClaw(object):
+    
     A class for the arm and its associated claw.
     Primary authors:  The ev3dev authors, David Mutchler, Dave Fisher,
     their colleagues, the entire team, and Jess Thuer.
-    """
+    
     # DONE In the above line, put the name of the primary author of this class.
 
     def __init__(self, touch_sensor, port=ev3.OUTPUT_A):
@@ -727,12 +727,12 @@ class ArmAndClaw(object):
         self.calibrate()
 
     def calibrate(self):
-        """
+        
         Raise the arm at a reasonable speed until the touch sensor is pressed.
         Then lower the arm 14.2 revolutions (i.e., 14.2 * 360 degrees),
         again at a reasonable speed. Then set the motor's position to 0.
         (Hence, 0 means all the way DOWN and 14.2 * 360 means all the way UP).
-        """
+        
         # DONE Do this as STEP 2 of implementing this class.
 
         import math
@@ -746,12 +746,12 @@ class ArmAndClaw(object):
         self.motor.reset_degrees_spun()
 
     def raise_arm_and_close_claw(self):
-        """
+        
         Raise the arm (and hence close the claw), by making this ArmAndClaw
         object's motor start spinning at a reasonable speed (e.g. 100).
         Positive speeds make the arm go UP; negative speeds make it go DOWN.
         Stop when the touch sensor is pressed.
-        """
+        
         # DONE Do this as STEP 1 of implementing this class.
 
         while True:
@@ -761,10 +761,10 @@ class ArmAndClaw(object):
                 break
 
     def move_arm_to_position(self, position):
-        """
+        
         Spin the arm's motor until it reaches the given position.
         Move at a reasonable speed.
-        """
+        
         # DONE Do this as STEP 3 of implementing this class.
 
         if self.motor.get_degrees_spun() < position:
@@ -779,3 +779,4 @@ class ArmAndClaw(object):
                 if self.motor.get_degrees_spun() <= position:
                     self.motor.stop_spinning()
                     break
+        """
