@@ -24,7 +24,6 @@ import ev3dev.ev3 as ev3
 
 def main():
     robot = rb.Snatch3rRobot()
-
     # --------------------------------------------------------------------------
     # TODO: 4. Add code that constructs a   com.MqttClient   that will
     # TODO:    be used to receive commands sent by the laptop.
