@@ -6,6 +6,8 @@
 import rosebotics_new as rb
 import ev3dev.ev3 as ev3
 import time
+import tkinter
+from tkinter import ttk
 
 
 def main():
@@ -35,6 +37,12 @@ def follow_line_color(color):
 
 def move_with_beacon_buttons():
     robot = rb.Snatch3rRobot()
+    window = tkinter.Tk()
+    frame = ttk.Frame(window, padding=10)
+    frame.grid()
+    button = ttk.Button(window, text='Infrared Beacon Buttons')
+    button.grid()
+
     if robot.beacon_button_sensor.is_top_red_button_pressed() == True:
         print('move forward 11 inches')
         robot.drive_system.go_straight_inches(11)
