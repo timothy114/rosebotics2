@@ -53,5 +53,7 @@ def move_with_beacon_buttons():
         print('move backward 11 inches')
         robot.drive_system.go_straight_inches(-11)
 
+    window.mainloop()
+
 
 main()
