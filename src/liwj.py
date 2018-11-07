@@ -109,7 +109,7 @@ def brick_GUI():
 
     root.mainloop()
 
-
+# Timothy
 
 def main():
     """ Runs YOUR specific part of the project """
