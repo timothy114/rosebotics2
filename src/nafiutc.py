@@ -14,6 +14,7 @@ def main():
     """ Runs YOUR specific part of the project """
     # robot_stop_when_color(3)
     # camera_beep()
+    move_with_beacon_buttons()
 
 
 def robot_stop_when_color(color):
@@ -40,8 +41,10 @@ def move_with_beacon_buttons():
     window = tkinter.Tk()
     frame = ttk.Frame(window, padding=10)
     frame.grid()
-    button = ttk.Button(window, text='Infrared Beacon Buttons')
-    button.grid()
+    button1 = ttk.Button(window, text='Red Up Button')
+    button2 = ttk.Button(window, text='Blue Up Button')
+    button1.grid()
+    button2.grid()
 
     if robot.beacon_button_sensor.is_top_red_button_pressed() == True:
         print('move forward 11 inches')
