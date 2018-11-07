@@ -14,6 +14,7 @@ from ev3dev import ev3
 from enum import Enum
 import low_level_rosebotics_new as low_level_rb
 import time
+import math
 
 # ------------------------------------------------------------------------------
 # Global constants.  Reference them as (for example):  rb.BRAKE   rb.GREEN
@@ -735,7 +736,6 @@ class ArmAndClaw(object):
         """
         # DONE Do this as STEP 2 of implementing this class.
 
-        import math
         self.raise_arm_and_close_claw()
         self.motor.reset_degrees_spun()
         while True:
@@ -779,4 +779,3 @@ class ArmAndClaw(object):
                 if self.motor.get_degrees_spun() <= position:
                     self.motor.stop_spinning()
                     break
-                    
