@@ -10,8 +10,8 @@ import time
 
 def main():
     """ Runs YOUR specific part of the project """
-    robot_stop_when_color(3)
-    camera_beep()
+    # robot_stop_when_color(3)
+    # camera_beep()
 
 
 def robot_stop_when_color(color):
@@ -31,6 +31,16 @@ def camera_beep():
 
 def follow_line_color(color):
     print("follow " + color + "line")
+
+
+def move_with_beacon_buttons():
+    robot = rb.Snatch3rRobot()
+    if robot.beacon_button_sensor.is_top_red_button_pressed() == True:
+        print('move forward 11 inches')
+        robot.drive_system.go_straight_inches(11)
+    elif robot.beacon_button_sensor.is_top_blue_button_pressed() == True:
+        print('move backward 11 inches')
+        robot.drive_system.go_straight_inches(-11)
 
 
 main()
