@@ -46,10 +46,10 @@ def move_with_beacon_buttons():
     button1.grid()
     button2.grid()
 
-    if robot.beacon_button_sensor.is_top_red_button_pressed() == True:
+    if robot.beacon_button_sensor.is_top_red_button_pressed():
         print('move forward 11 inches')
         robot.drive_system.go_straight_inches(11)
-    elif robot.beacon_button_sensor.is_top_blue_button_pressed() == True:
+    elif robot.beacon_button_sensor.is_top_blue_button_pressed():
         print('move backward 11 inches')
         robot.drive_system.go_straight_inches(-11)
 

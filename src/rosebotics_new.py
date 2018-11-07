@@ -736,14 +736,15 @@ class ArmAndClaw(object):
         # DONE Do this as STEP 2 of implementing this class.
 
         import math
+        arm = low_level_rb.Wheel(self.motor)
         self.raise_arm_and_close_claw()
-        self.motor.reset_degrees_spun()
+        arm.reset_degrees_spun()
         while True:
-            self.motor.start_spinning(-100)
-            if math.fabs(self.motor.get_degrees_spun()) >= (14.2*360):
-                self.motor.stop_spinning()
+            arm.start_spinning(-100)
+            if math.fabs(arm.get_degrees_spun()) >= (14.2*360):
+                arm.stop_spinning()
                 break
-        self.motor.reset_degrees_spun()
+        arm.reset_degrees_spun()
 
     def raise_arm_and_close_claw(self):
         """
@@ -754,10 +755,11 @@ class ArmAndClaw(object):
         """
         # DONE Do this as STEP 1 of implementing this class.
 
+        arm = low_level_rb.Wheel(self.motor)
         while True:
-            self.motor.start_spinning(100)
+            arm.start_spinning(100)
             if self.touch_sensor.get_value() == 1:
-                self.motor.stop_spinning()
+                arm.stop_spinning()
                 break
 
     def move_arm_to_position(self, position):
@@ -767,15 +769,16 @@ class ArmAndClaw(object):
         """
         # DONE Do this as STEP 3 of implementing this class.
 
-        if self.motor.get_degrees_spun() < position:
+        arm = low_level_rb.Wheel(self.motor)
+        if arm.get_degrees_spun() < position:
             while True:
-                self.motor.start_spinning(100)
-                if self.motor.get_degrees_spun() >= position:
-                    self.motor.stop_spinning()
+                arm.start_spinning(100)
+                if arm.get_degrees_spun() >= position:
+                    arm.stop_spinning()
                     break
         else:
             while True:
-                self.motor.start_spinning(-100)
-                if self.motor.get_degrees_spun() <= position:
-                    self.motor.stop_spinning()
+                arm.start_spinning(-100)
+                if arm.get_degrees_spun() <= position:
+                    arm.stop_spinning()
                     break
