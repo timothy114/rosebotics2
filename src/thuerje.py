@@ -256,32 +256,50 @@ class pizza(object):
             point = rg.Point(250, 250)
             radius = (self.ratio_number) - 20
             circle = rg.Circle(point, radius)
+            if value == 1:
+                circle.fill_color = 'light grey'
             if value == 2:
                 circle.fill_color = 'orange'
             if value == 3:
                 circle.fill_color = 'light blue'
-            else:
+            if value == 4:
+                circle.fill_color = 'light grey'
+            if value == 5:
                 circle.fill_color = 'light grey'
             circle.attach_to(window)
             window.render()
             self.counter = self.counter + 1
 
     def meats(self, window, value):
+        import math
         if self.counter >= 3:
             point = rg.Point(250, 250)
             radius = (self.ratio_number) - 25
-            # if value == 1:
-            #     object = ...
-            # if value == 2:
-            #     circle.fill_color = 'brown'
-            # if value == 3:
-            #     circle.fill_color = 'green'
-            # if value == 4:
-            #     circle.fill_color = 'white'
-            circle.attach_to(window)
-            window.render()
-            radius = (self.ratio_number) - (25+50)
-            self.total = self.total + 1
+            for k in range(self.num):
+                if value == 1:
+                    num_obs = 6 + (2*k)
+                    xc = point.x + radius - 30
+                    yc = point.y
+                    dtheta = (2*math.pi)/num_obs
+                    theta = 0
+                    for _ in range(2):
+                        point = rg.Point(xc, yc)
+                        obj = rg.Circle(point, 7)
+                        obj.fill_color = 'red'
+                        obj.attach_to(window)
+                        theta = theta + dtheta
+                        xc = (radius-30)*math.cos(theta) + xc
+                        yc = (radius-30)*math.sin(theta) + yc
+
+                # if value == 2:
+                #     circle.fill_color = 'brown'
+                # if value == 3:
+                #     circle.fill_color = 'green'
+                # if value == 4:
+                #     circle.fill_color = 'white'
+                window.render()
+                radius = (self.ratio_number) - (25+50)
+                self.total = self.total + 1
 
 
 
