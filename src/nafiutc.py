@@ -6,31 +6,40 @@
 import rosebotics_new as rb
 import ev3dev.ev3 as ev3
 import time
-import tkinter
-from tkinter import ttk
+# import tkinter
+# from tkinter import ttk
 
 
 def main():
     """ Runs YOUR specific part of the project """
-    robot_stop_when_color("Color.GREEN")
+    robot_stop_when_color(rb.GREEN)
     # camera_beep()
     # move_with_beacon_buttons()
+    robot = rb.Snatch3rRobot()
+    while True:
+        time.sleep(0.01)  # For the delegate to do its work
+        if robot.beacon_button_sensor.is_top_red_button_pressed():
+            ev3.Sound.beep(1).wait()
+        if robot.beacon_button_sensor.is_top_blue_button_pressed():
+            ev3.Sound.speak('Hi Tim')
 
 
 def robot_stop_when_color(color):
     robot = rb.Snatch3rRobot()
     robot.drive_system.start_moving(50, 50)
     print(color)
-    if robot.color_sensor.get_color() == color:
-        robot.drive_system.stop_moving()
+    while True:
+        if robot.color_sensor.get_color() == color:
+            robot.drive_system.stop_moving()
 
 
 def camera_beep():
     camera = rb.Camera()
     blob_area = camera.get_biggest_blob().get_area()
     print(blob_area)
+    ev3.Sound.beep(1).wait()
     if blob_area >= 600:
-        ev3.Sound.beep().wait()
+        ev3.Sound.beep(1).wait()
     else:
         time.sleep(1)
 
@@ -38,7 +47,7 @@ def camera_beep():
 def follow_line_color(color):
     print("follow " + color + "line")
 
-
+"""
 def move_with_beacon_buttons():
     robot = rb.Snatch3rRobot()
     window = tkinter.Tk()
@@ -70,7 +79,7 @@ def sprint_three(robot):
     entry_box.grid()
     button.grid()
     button['command'] = lambda: go_forward(robot, entry_box)
-
+"""
 
 def go_forward(robot, entry_box):
     speed = int(entry_box.get())
