@@ -12,7 +12,7 @@ import time
 
 def main():
     """ Runs YOUR specific part of the project """
-    robot_stop_when_color(rb.GREEN)
+    robot_stop_when_color(3)
     # camera_beep()
     # move_with_beacon_buttons()
     robot = rb.Snatch3rRobot()
