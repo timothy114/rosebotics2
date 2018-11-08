@@ -9,9 +9,6 @@ It uses MQTT to RECEIVE information from a program running on the LAPTOP.
 
 Authors:  David Mutchler, his colleagues, and Timothy Li.
 """
-# ------------------------------------------------------------------------------
-# DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.  Then delete this DONE.
-# ------------------------------------------------------------------------------
 
 # ------------------------------------------------------------------------------
 # TODO: 2. With your instructor, review the "big picture" of laptop-robot
@@ -62,7 +59,13 @@ def main():
         # TODO:    speak "Hello. How are you?" if the top-blue button on the
         # TODO:    Beacon is pressed.  Test.  When done, delete this TODO.
         # ----------------------------------------------------------------------
+
         time.sleep(0.01)  # For the delegate to do its work
+
+        if robot.beacon_button_sensor.is_top_red_button_pressed():
+            ev3.Sound.beep(1)
+        if robot.beacon_button_sensor.is_top_blue_button_pressed():
+            ev3.Sound.speak("Hello. How are you?")
 
 class RemoteControlEtc(object):
 
