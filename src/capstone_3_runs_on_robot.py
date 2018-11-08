@@ -63,7 +63,7 @@ def main():
         time.sleep(0.01)  # For the delegate to do its work
         if robot.beacon_button_sensor.is_top_red_button_pressed():
             ev3.Sound.beep().wait()
-            ev3.Sound.speak('Its time pizzaaaa!')
+            ev3.Sound.speak("It's time for pizzaaaa!")
 
 
 
