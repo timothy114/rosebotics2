@@ -125,8 +125,8 @@ def main():
     # Sprint 2
     #beep_when_hand(robot)
 
-    # Sprint 3
-    brick_GUI()
+    # Ignore
+    #brick_GUI()
 
 
 main()
