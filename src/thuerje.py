@@ -25,6 +25,7 @@ def follow_line(robot):
                         spin = spin + 360
                     spin = -spin * (-k+2)
         if robot.touch_sensor.wait_until_pressed():
+            time.sleep(0.1)
             break
 
 """
