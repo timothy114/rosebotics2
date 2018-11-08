@@ -319,7 +319,7 @@ class ColorSensor(low_level_rb.ColorSensor):
     """
     A class for an EV3 color sensor.
     Primary authors:  The ev3dev authors, David Mutchler, Dave Fisher,
-       their colleagues, the entire team, and Jess Thuer
+       their colleagues, the entire team, and PUT_YOUR_NAME_HERE.
     """
 
     def __init__(self, port=ev3.INPUT_3):
@@ -605,9 +605,9 @@ class InfraredAsBeaconButtonSensor(object):
     A class for the infrared sensor when it is in the mode in which it
     measures which (if any) of the Beacon buttons are being pressed.
     Primary authors:  The ev3dev authors, David Mutchler, Dave Fisher,
-    their colleagues, the entire team, and Jess Thuer
+    their colleagues, the entire team, and PUT_YOUR_NAME_HERE.
     """
-    # DONE In the above line, put the name of the primary author of this class.
+    # TODO: In the above line, put the name of the primary author of this class.
 
     def __init__(self, channel=1):
         self.channel = channel
@@ -711,7 +711,6 @@ class ArmAndClaw(object):
     Primary authors:  The ev3dev authors, David Mutchler, Dave Fisher,
     their colleagues, the entire team, and Jess Thuer.
     """
-
     # DONE In the above line, put the name of the primary author of this class.
 
     def __init__(self, touch_sensor, port=ev3.OUTPUT_A):
@@ -725,8 +724,7 @@ class ArmAndClaw(object):
         # Sets the motor's position to 0 (the DOWN position).
         # At the DOWN position, the robot fits in its plastic bin,
         # so we start with the ArmAndClaw in that position.
-        #self.calibrate()
-
+        self.calibrate()
 
     def calibrate(self):
         """
@@ -748,7 +746,6 @@ class ArmAndClaw(object):
         self.motor.reset_degrees_spun()
 
     def raise_arm_and_close_claw(self):
-
         """
         Raise the arm (and hence close the claw), by making this ArmAndClaw
         object's motor start spinning at a reasonable speed (e.g. 100).
@@ -782,4 +779,3 @@ class ArmAndClaw(object):
                 if self.motor.get_degrees_spun() <= position:
                     self.motor.stop_spinning()
                     break
-                    
