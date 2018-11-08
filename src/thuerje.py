@@ -14,9 +14,9 @@ def follow_line(robot):
     while True:
         while robot.touch_sensor.get_value() == 0:
             spin = 5
-            robot.color_sensor.wait_until_intensity_is_greater_than(5)
-            robot.drive_system.start_moving()
             robot.color_sensor.wait_until_intensity_is_less_than(5)
+            robot.drive_system.start_moving()
+            robot.color_sensor.wait_until_intensity_is_greater_than(5)
             robot.drive_system.stop_moving()
             for k in range(360):
                 if spin < 360:
