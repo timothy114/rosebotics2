@@ -56,7 +56,7 @@ class RemoteControlEtc(object):
         self.robot = robot
 
     def go_forward(self, speed_string):
-        speed = input(speed_string)
+        speed = int(speed_string)
         print('Robot should start moving')
         self.robot.drive_system.start_moving(speed, speed)
 
