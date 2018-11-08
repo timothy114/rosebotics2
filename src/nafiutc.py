@@ -55,5 +55,23 @@ def move_with_beacon_buttons():
 
     window.mainloop()
 
+# Sprint 3 work
+
+
+def sprint_three(robot):
+    window = tkinter.Tk()
+    frame = ttk.Frame(window, padding=10)
+    frame.grid()
+    button = ttk.Button(window, text='Go Forward')
+    entry_box = ttk.Entry(frame)
+    entry_box.grid()
+    button.grid()
+    button['command'] = lambda: go_forward(robot, entry_box)
+
+
+def go_forward(robot, entry_box):
+    speed = int(entry_box.get())
+    robot.drive_system.start_moving(speed, speed)
+
 
 main()
