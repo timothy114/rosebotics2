@@ -5,9 +5,11 @@
 
 import rosebotics_even_newer as rb
 import time
+"""
 import tkinter
 from tkinter import ttk
 import rosegraphics as rg
+"""
 import rosebotics_new as rb
 
 def follow_line(robot):
