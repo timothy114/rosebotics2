@@ -12,13 +12,15 @@ from tkinter import ttk
 
 def main():
     """ Runs YOUR specific part of the project """
-    # robot_stop_when_color(3)
+    robot_stop_when_color("Color.GREEN")
     # camera_beep()
-    move_with_beacon_buttons()
+    # move_with_beacon_buttons()
 
 
 def robot_stop_when_color(color):
     robot = rb.Snatch3rRobot()
+    robot.drive_system.start_moving(50, 50)
+    print(color)
     if robot.color_sensor.get_color() == color:
         robot.drive_system.stop_moving()
 
@@ -26,6 +28,7 @@ def robot_stop_when_color(color):
 def camera_beep():
     camera = rb.Camera()
     blob_area = camera.get_biggest_blob().get_area()
+    print(blob_area)
     if blob_area >= 600:
         ev3.Sound.beep().wait()
     else:
