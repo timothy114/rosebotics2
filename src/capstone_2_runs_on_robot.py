@@ -9,9 +9,6 @@ It uses MQTT to RECEIVE information from a program running on the LAPTOP.
 
 Authors:  David Mutchler, his colleagues, and Timothy Li.
 """
-# ------------------------------------------------------------------------------
-# DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.  Then delete this DONE.
-# ------------------------------------------------------------------------------
 
 # ------------------------------------------------------------------------------
 # TODO: 2. With your instructor, review the "big picture" of laptop-robot
