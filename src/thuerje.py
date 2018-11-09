@@ -58,6 +58,10 @@ def build_your_own_pizza():
     toppings_button['command'] = (lambda: Pizza.toppings_frame(pizza_window))
     toppings_button.grid()
 
+    bake_button = ttk.Button(frame, text='BAKE PIZZA')
+    bake_button['command'] = (lambda: bake())
+    bake_button.grid()
+
     # reset_button = ttk.Button(frame, text='Reset')
     # reset_button['command'] = (lambda: Pizza.reset(pizza_window))
     # reset_button.grid()
@@ -436,6 +440,9 @@ def pt(radius, num):
     if num == 3:
         ptt = rg.Point(point.x, point.y - radius)
         return ptt
+
+# def bake()
+#     ...
 
 
 
