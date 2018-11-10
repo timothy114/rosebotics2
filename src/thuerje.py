@@ -10,6 +10,8 @@ import tkinter
 from tkinter import ttk
 import rosegraphics as rg
 
+import mqtt_remote_method_calls as com
+
 
 """
 def follow_line(robot):
@@ -32,7 +34,7 @@ def follow_line(robot):
 """
 
 
-def build_your_own_pizza():
+def build_your_own_pizza(mqtt_client):
     pizza_window = rg.RoseWindow(500, 500, 'Pizza Time!')
     Pizza = pizza()
     window = tkinter.Tk()
@@ -59,7 +61,7 @@ def build_your_own_pizza():
     toppings_button.grid()
 
     bake_button = ttk.Button(frame, text='BAKE PIZZA')
-    bake_button['command'] = (lambda: bake())
+    bake_button['command'] = (lambda: Pizza.bake(mqtt_client))
     bake_button.grid()
 
     # reset_button = ttk.Button(frame, text='Reset')
@@ -78,6 +80,7 @@ class pizza(object):
         self.cheese_color = 'tan'
         self.txt = ' '
         self.total = 0
+        self.speed = 0
 
     def crust_frame(self, pizza_window, txt):
         self.txt = str(txt)
@@ -425,6 +428,11 @@ class pizza(object):
                 self.txt.attach_to(window)
                 window.render()
 
+    def bake(self, mqtt_client):
+        bake(mqtt_client, self.speed)
+
+
+
 
 def pt(radius, num):
     point = rg.Point(250, 250)
@@ -441,8 +449,10 @@ def pt(radius, num):
         ptt = rg.Point(point.x, point.y - radius)
         return ptt
 
-# def bake()
-#     ...
+
+def bake(mqtt_client, speed1):
+    speed2 = 50
+    mqtt_client.send_message('go_forward', [speed1], [speed2] )
 
 
 
@@ -456,12 +466,15 @@ def pt(radius, num):
 
 def main():
     """ Runs YOUR specific part of the project """
+
     """
     robot = rb.Snatch3rRobot()
     follow_line(robot)
     """
 
-    build_your_own_pizza()
+    mqtt_client = com.MqttClient()
+    mqtt_client.connect_to_ev3()
+    build_your_own_pizza(mqtt_client)
 
 
 main()
