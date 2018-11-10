@@ -61,7 +61,7 @@ def build_your_own_pizza(mqtt_client):
     toppings_button.grid()
 
     bake_button = ttk.Button(frame, text='BAKE PIZZA')
-    bake_button['command'] = (lambda: Pizza.bake(mqtt_client))
+    bake_button['command'] = (lambda: Pizza.bake(pizza_window, mqtt_client))
     bake_button.grid()
 
     # reset_button = ttk.Button(frame, text='Reset')
@@ -428,8 +428,13 @@ class pizza(object):
                 self.txt.attach_to(window)
                 window.render()
 
-    def bake(self, mqtt_client):
-        bake(mqtt_client, self.speed)
+    def bake(self, window, mqtt_client):
+        bakee(mqtt_client, self.num*5, (self.ratio_number)/10)
+        self.txt.detach_from(window)
+        self.txt = rg.Text(rg.Point(250, 50), 'Your pizza is ready')
+        self.txt.attach_to(window)
+        window.render()
+        window.close_on_mouse_click()
 
 
 
@@ -450,9 +455,9 @@ def pt(radius, num):
         return ptt
 
 
-def bake(mqtt_client, speed1):
+def bakee(mqtt_client, sec, speed1):
     speed2 = 50
-    mqtt_client.send_message('go_forward', [speed1], [speed2] )
+    mqtt_client.send_message('go_forward', [sec], [speed1], [speed2] )
 
 
 

@@ -11,6 +11,7 @@ def main():
     rc = RemoteControlEtc(robot)
     mqtt_client = com.MqttClient(rc)
     mqtt_client.connect_to_pc()
+    # mqtt_client.send_message('Your pizza is ready')
 
     # time.sleep(0.01)  # For the delegate to do its work
     # ev3.Sound.beep(1)
