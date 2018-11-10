@@ -33,6 +33,7 @@ class RemoteControlEtc(object):
         speed2 = int(speed_string2)
         ev3.Sound.beep(1)
         self.robot.drive_system.move_for_seconds(sec, speed1, speed2)
+        self.robot.arm.raise_arm_and_close_claw()
         ev3.Sound.speak("It's time for pizzaaaa!")
 
 main()

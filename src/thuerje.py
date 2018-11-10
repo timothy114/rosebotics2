@@ -71,7 +71,6 @@ def build_your_own_pizza(mqtt_client):
     # pizza_window.close_on_mouse_click()
     window.mainloop()
 
-
 class pizza(object):
     def __init__(self):
         self.button_click_counter = 0
@@ -436,9 +435,6 @@ class pizza(object):
         window.render()
         window.close_on_mouse_click()
 
-
-
-
 def pt(radius, num):
     point = rg.Point(250, 250)
     if num == 0:
@@ -453,7 +449,6 @@ def pt(radius, num):
     if num == 3:
         ptt = rg.Point(point.x, point.y - radius)
         return ptt
-
 
 def bakee(mqtt_client, sec, speed1):
     speed2 = 50
