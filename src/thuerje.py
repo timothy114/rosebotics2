@@ -451,8 +451,8 @@ def pt(radius, num):
         return ptt
 
 def bakee(mqtt_client, sec, speed1):
-    speed2 = 50
-    mqtt_client.send_message('go_forward', [sec], [speed1], [speed2] )
+    # speed2 = 50
+    mqtt_client.send_message([sec], [speed1])
 
 
 

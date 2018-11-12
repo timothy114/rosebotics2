@@ -27,12 +27,12 @@ class RemoteControlEtc(object):
         """
         self.robot = robot
 
-    def go_forward(self, sec_string, speed_string1, speed_string2):
+    def go_forward(self, sec_string, speed_string1):
         sec = int(sec_string)
         speed1 = int(speed_string1)
-        speed2 = int(speed_string2)
+        # speed2 = int(speed_string2)
         ev3.Sound.beep(1)
-        self.robot.drive_system.move_for_seconds(sec, speed1, speed2)
+        self.robot.drive_system.move_for_seconds(sec, speed1, 50)
         self.robot.arm.raise_arm_and_close_claw()
         ev3.Sound.speak("It's time for pizzaaaa!")
 
