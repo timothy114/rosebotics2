@@ -60,6 +60,9 @@ def build_your_own_pizza(mqtt_client):
     toppings_button['command'] = (lambda: Pizza.toppings_frame(pizza_window))
     toppings_button.grid()
 
+    mqtt_client = com.MqttClient()
+    mqtt_client.connect_to_ev3()
+
     bake_button = ttk.Button(frame, text='BAKE PIZZA')
     bake_button['command'] = (lambda: Pizza.bake(pizza_window, mqtt_client))
     bake_button.grid()
@@ -451,8 +454,24 @@ def pt(radius, num):
         return ptt
 
 def bakee(mqtt_client, sec, speed1):
-    # speed2 = 50
-    mqtt_client.send_message([sec], [speed1])
+    speed2 = 50
+    mqtt_client.send_message('pizza', [sec], [speed1], [speed2])
+    rc = RemoteControlEtc()
+    mqtt_client = com.MqttClient(rc)
+    mqtt_client.connect_to_pc()
+
+class RemoteControlEtc(object):
+    def __init__(self):
+        """
+        Stores a robot.
+            :type robot: rb.Snatch3rRobot
+        """
+
+    def order_up(self, rdy_string):
+        pay = rdy_string
+        ww = rg.RoseWindow()
+        pay.attach_to(ww)
+        ww.render()
 
 
 
