@@ -455,7 +455,7 @@ def pt(radius, num):
 
 def bakee(mqtt_client, sec, speed1):
     speed2 = 50
-    mqtt_client.send_message('pizza', [sec], [speed1], [speed2])
+    mqtt_client.send_message('pizza', [sec, speed1, speed2])
     rc = RemoteControlEtc()
     mqtt_client = com.MqttClient(rc)
     mqtt_client.connect_to_pc()
