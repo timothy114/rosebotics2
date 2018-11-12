@@ -431,12 +431,12 @@ class pizza(object):
                 window.render()
 
     def bake(self, window, mqtt_client):
-        bakee(mqtt_client, self.num*5, (self.ratio_number)/10)
         self.txt.detach_from(window)
-        self.txt = rg.Text(rg.Point(250, 50), 'Your pizza is ready')
-        self.txt.attach_to(window)
-        window.render()
-        window.close_on_mouse_click()
+        bakee(mqtt_client, self.num*5, (self.ratio_number)/10)
+        # self.txt = rg.Text(rg.Point(250, 50), 'Your pizza is ready')
+        # self.txt.attach_to(window)
+        # window.render()
+        # window.close_on_mouse_click()
 
 def pt(radius, num):
     point = rg.Point(250, 250)
@@ -468,8 +468,8 @@ class RemoteControlEtc(object):
         """
 
     def order_up(self, rdy_string):
-        pay = rdy_string
-        ww = rg.RoseWindow()
+        pay = rg.Text(rg.Point(250, 250), rdy_string)
+        ww = rg.RoseWindow(500, 500)
         pay.attach_to(ww)
         ww.render()
 
