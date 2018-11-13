@@ -482,7 +482,6 @@ def bakee(mqtt_client, sec, speed1):
 
 
 
-
 def main():
     """ Runs YOUR specific part of the project """
 
