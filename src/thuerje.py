@@ -429,10 +429,10 @@ class pizza(object):
     def bake(self, window, mqtt_client):
         self.txt.detach_from(window)
         bakee(mqtt_client, self.num*5, (self.ratio_number)/10)
-        # self.txt = rg.Text(rg.Point(250, 50), 'Your pizza is ready')
-        # self.txt.attach_to(window)
-        # window.render()
-        # window.close_on_mouse_click()
+        self.txt = rg.Text(rg.Point(250, 50), 'Your pizza is ready')
+        self.txt.attach_to(window)
+        window.render()
+        window.close_on_mouse_click()
 
     def order_up(self, rdy_string):
         pay = rg.Text(rg.Point(250, 250), rdy_string)
