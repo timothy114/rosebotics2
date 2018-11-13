@@ -10,6 +10,8 @@ import tkinter
 from tkinter import ttk
 import rosegraphics as rg
 
+import mqtt_remote_method_calls as com
+
 
 """
 def follow_line(robot):
@@ -32,15 +34,18 @@ def follow_line(robot):
 """
 
 
-def build_your_own_pizza():
+def build_your_own_pizza(mqtt_client):
     pizza_window = rg.RoseWindow(500, 500, 'Pizza Time!')
     Pizza = pizza()
     window = tkinter.Tk()
     frame = ttk.Frame(window, padding = 25)
     frame.grid()
+    txt = rg.Text(rg.Point(250, 50), 'Choose your crust size')
+    txt.attach_to(pizza_window)
+    pizza_window.render()
 
     crust_button = ttk.Button(frame, text='Crust')
-    crust_button['command'] = (lambda: Pizza.crust_frame(pizza_window))
+    crust_button['command'] = (lambda: Pizza.crust_frame(pizza_window, txt))
     crust_button.grid()
 
     sauce_button = ttk.Button(frame, text='Sauce')
@@ -55,39 +60,46 @@ def build_your_own_pizza():
     toppings_button['command'] = (lambda: Pizza.toppings_frame(pizza_window))
     toppings_button.grid()
 
+    mqtt_client = com.MqttClient()
+    mqtt_client.connect_to_ev3()
+
+    bake_button = ttk.Button(frame, text='BAKE PIZZA')
+    bake_button['command'] = (lambda: Pizza.bake(pizza_window, mqtt_client))
+    bake_button.grid()
+
     # reset_button = ttk.Button(frame, text='Reset')
     # reset_button['command'] = (lambda: Pizza.reset(pizza_window))
     # reset_button.grid()
 
-    pizza_window.close_on_mouse_click()
+    # pizza_window.close_on_mouse_click()
     window.mainloop()
 
 class pizza(object):
     def __init__(self):
-        self.counter = 0
+        self.button_click_counter = 0
         self.ratio_number = 0
         self.num = 0
+        self.cheese_color = 'tan'
+        self.txt = ' '
         self.total = 0
+        self.speed = 0
 
-    # def reset(self, pizza_window):
-    #     self.ratio_number = 0
-    #     pizza_window.__reduce__()
-
-    def crust_frame(self, pizza_window):
+    def crust_frame(self, pizza_window, txt):
+        self.txt = str(txt)
         window = tkinter.Tk()
         frame = ttk.Frame(window, padding=25)
         frame.grid()
 
         small_button = ttk.Button(frame, text='Small (10")')
-        small_button['command'] = (lambda: self.crust(pizza_window, 1))
+        small_button['command'] = (lambda: self.crust(pizza_window, 1, txt))
         small_button.grid()
 
         medium_button = ttk.Button(frame, text='Medium (13")')
-        medium_button['command'] = (lambda: self.crust(pizza_window, 2))
+        medium_button['command'] = (lambda: self.crust(pizza_window, 2, txt))
         medium_button.grid()
 
         large_button = ttk.Button(frame, text='Large (15")')
-        large_button['command'] = (lambda: self.crust(pizza_window, 3))
+        large_button['command'] = (lambda: self.crust(pizza_window, 3, txt))
         large_button.grid()
 
     def sauce_frame(self, pizza_window):
@@ -141,105 +153,87 @@ class pizza(object):
         frame = ttk.Frame(window, padding=25)
         frame.grid()
 
-        meats_button = ttk.Button(frame, text='Meats')
-        meats_button['command'] = (lambda: self.meats_frame(pizza_window))
-        meats_button.grid()
-
-        vegetables_button = ttk.Button(frame, text='Vegetables')
-        vegetables_button['command'] = (lambda: self.vegetables_frame(pizza_window))
-        vegetables_button.grid()
-
-    def meats_frame(self, pizza_window):
-        window = tkinter.Tk()
-        frame = ttk.Frame(window, padding=25)
-        frame.grid()
-
         pepperoni_button = ttk.Button(frame, text='Pepperoni')
-        pepperoni_button['command'] = (lambda: self.meats(pizza_window, 1))
+        pepperoni_button['command'] = (lambda: self.toppings(pizza_window, 1))
         pepperoni_button.grid()
 
         sausage_button = ttk.Button(frame, text='Sausage')
-        sausage_button['command'] = (lambda: self.meats(pizza_window, 2))
+        sausage_button['command'] = (lambda: self.toppings(pizza_window, 2))
         sausage_button.grid()
 
         ham_button = ttk.Button(frame, text='Ham')
-        ham_button['command'] = (lambda: self.meats(pizza_window, 3))
+        ham_button['command'] = (lambda: self.toppings(pizza_window, 3))
         ham_button.grid()
 
         chicken_button = ttk.Button(frame, text='Chicken')
-        chicken_button['command'] = (lambda: self.meats(pizza_window, 4))
+        chicken_button['command'] = (lambda: self.toppings(pizza_window, 4))
         chicken_button.grid()
 
         anchovies_button = ttk.Button(frame, text='Anchovies')
-        anchovies_button['command'] = (lambda: self.meats(pizza_window, 5))
+        anchovies_button['command'] = (lambda: self.toppings(pizza_window, 5))
         anchovies_button.grid()
 
         tofu_button = ttk.Button(frame, text='Tofu')
-        tofu_button['command'] = (lambda: self.meats(pizza_window, 6))
+        tofu_button['command'] = (lambda: self.toppings(pizza_window, 6))
         tofu_button.grid()
 
-    def vegetables_frame(self, pizza_window):
-        window = tkinter.Tk()
-        frame = ttk.Frame(window, padding=25)
-        frame.grid()
-
         green_pep_button = ttk.Button(frame, text='Green Peppers')
-        green_pep_button['command'] = (lambda: self.vegetables(pizza_window, 1))
+        green_pep_button['command'] = (lambda: self.toppings(pizza_window, 7))
         green_pep_button.grid()
 
         red_pep_button = ttk.Button(frame, text='Red Peppers')
-        red_pep_button['command'] = (lambda: self.vegetables(pizza_window, 2))
+        red_pep_button['command'] = (lambda: self.toppings(pizza_window, 8))
         red_pep_button.grid()
 
         tomatoes_button = ttk.Button(frame, text='Tomatoes')
-        tomatoes_button['command'] = (lambda: self.vegetables(pizza_window, 3))
+        tomatoes_button['command'] = (lambda: self.toppings(pizza_window, 9))
         tomatoes_button.grid()
 
         onions_button = ttk.Button(frame, text='Onions')
-        onions_button['command'] = (lambda: self.vegetables(pizza_window, 4))
+        onions_button['command'] = (lambda: self.toppings(pizza_window, 10))
         onions_button.grid()
 
         olives_button = ttk.Button(frame, text='Olives')
-        olives_button['command'] = (lambda: self.vegetables(pizza_window, 5))
+        olives_button['command'] = (lambda: self.toppings(pizza_window, 11))
         olives_button.grid()
 
         pineapple_button = ttk.Button(frame, text='Pineapple')
-        pineapple_button['command'] = (lambda: self.vegetables(pizza_window, 6))
+        pineapple_button['command'] = (lambda: self.toppings(pizza_window, 12))
         pineapple_button.grid()
 
         spinach_button = ttk.Button(frame, text='Spinach')
-        spinach_button['command'] = (lambda: self.vegetables(pizza_window, 7))
+        spinach_button['command'] = (lambda: self.toppings(pizza_window, 13))
         spinach_button.grid()
 
         mushroom_button = ttk.Button(frame, text='Mushrooms')
-        mushroom_button['command'] = (lambda: self.vegetables(pizza_window, 8))
+        mushroom_button['command'] = (lambda: self.toppings(pizza_window, 14))
         mushroom_button.grid()
 
-
-    def crust(self, window, value):
-        if self.counter == 0:
+    def crust(self, window, value, txt):
+        if self.button_click_counter == 0:
             point = rg.Point(250, 250)
             radius = 0
             if value == 1:
                 radius = 100
                 self.ratio_number = 100
-                self.num = 1
             if value == 2:
                 radius = 130
                 self.ratio_number = 130
-                self.num = 2
             if value == 3:
                 radius = 150
                 self.ratio_number = 150
-                self.num = 3
             circle = rg.Circle(point, radius)
             circle.fill_color = 'tan'
             circle.attach_to(window)
             window.render()
-            self.counter = self.counter + 1
+            self.button_click_counter = self.button_click_counter + 1
+            txt.detach_from(window)
+            self.txt = rg.Text(rg.Point(250, 50), 'Choose your sauce')
+            self.txt.attach_to(window)
+            window.render()
 
     def sauce(self, window, value):
-        if self.counter == 1:
+        if self.button_click_counter == 1:
             point = rg.Point(250, 250)
             radius = (self.ratio_number) - 15
             circle = rg.Circle(point, radius)
@@ -253,57 +247,232 @@ class pizza(object):
                 circle.fill_color = 'white'
             circle.attach_to(window)
             window.render()
-            self.counter = self.counter + 1
+            self.button_click_counter = self.button_click_counter + 1
+            self.txt.detach_from(window)
+            self.txt = rg.Text(rg.Point(250, 50), 'Choose your cheese')
+            self.txt.attach_to(window)
+            window.render()
 
     def cheese(self, window, value):
-        if self.counter == 2:
+        if self.button_click_counter == 2:
             point = rg.Point(250, 250)
             radius = (self.ratio_number) - 20
             circle = rg.Circle(point, radius)
             if value == 1:
                 circle.fill_color = 'light grey'
+                self.cheese_color = 'light grey'
             if value == 2:
                 circle.fill_color = 'orange'
+                self.cheese_color = 'orange'
             if value == 3:
                 circle.fill_color = 'light blue'
+                self.cheese_color = 'light blue'
             if value == 4:
                 circle.fill_color = 'light grey'
+                self.cheese_color = 'light grey'
             if value == 5:
                 circle.fill_color = 'light grey'
+                self.cheese_color = 'light grey'
             circle.attach_to(window)
             window.render()
-            self.counter = self.counter + 1
+            self.button_click_counter = self.button_click_counter + 1
+            self.txt.detach_from(window)
+            self.txt = rg.Text(rg.Point(250, 50), 'Choose up to 4 toppings')
+            self.txt.attach_to(window)
+            window.render()
 
-    def meats(self, window, value):
-        import math
-        if self.counter >= 3:
-            point = rg.Point(250, 250)
-            radius = (self.ratio_number) - 25
-            for k in range(self.num):
-                if value == 1:
-                    num_obs = 6 + (2*k)
-                    xc = point.x + radius - 30
-                    yc = point.y
-                    dtheta = (2*math.pi)/num_obs
-                    theta = 0
-                    for _ in range(2):
-                        point = rg.Point(xc, yc)
-                        obj = rg.Circle(point, 7)
-                        obj.fill_color = 'red'
-                        obj.attach_to(window)
-                        theta = theta + dtheta
-                        xc = (radius-30)*math.cos(theta) + xc
-                        yc = (radius-30)*math.sin(theta) + yc
-
-                # if value == 2:
-                #     circle.fill_color = 'brown'
-                # if value == 3:
-                #     circle.fill_color = 'green'
-                # if value == 4:
-                #     circle.fill_color = 'white'
-                window.render()
-                radius = (self.ratio_number) - (25+50)
+    def toppings(self, window, value):
+        if self.button_click_counter >= 3:
+            radius = int(self.ratio_number / 2)
+            point = pt(radius, self.num)
+            if value == 1:
+                obj = rg.Circle(point, 12)
+                obj.fill_color = 'dark red'
+                obj.attach_to(window)
+                self.num = self.num + 1
                 self.total = self.total + 1
+                window.render()
+            if value == 2:
+                p1 = rg.Point(point.x, point.y + 4)
+                p2 = rg.Point(point.x + 4, point.y - 2)
+                p3 = rg.Point(point.x - 4, point.y - 4)
+                obj1 = rg.Circle(p1, 8)
+                obj2 = rg.Circle(p2, 8)
+                obj3 = rg.Circle(p3, 8)
+                obj1.fill_color = obj2.fill_color = obj3.fill_color = 'grey'
+                obj1.attach_to(window)
+                obj2.attach_to(window)
+                obj3.attach_to(window)
+                self.num = self.num + 1
+                self.total = self.total + 1
+                window.render()
+            if value == 3:
+                obj = rg.Square(point, 24)
+                obj.fill_color = 'pink'
+                obj.attach_to(window)
+                self.num = self.num + 1
+                self.total = self.total + 1
+                window.render()
+            if value == 4:
+                p11 = rg.Point(point.x - 20, point.y - 10)
+                p12 = rg.Point(point.x + 20, point.y + 10)
+                obj1 = rg.Rectangle(p11, p12)
+                obj1.fill_color = 'tan'
+                obj1.attach_to(window)
+                p21 = rg.Point(point.x - 16, point.y - 5)
+                p22 = rg.Point(point.x + 16, point.y - 2)
+                obj2 = rg.Rectangle(p21, p22)
+                obj2.fill_color = 'black'
+                obj2.attach_to(window)
+                p31 = rg.Point(point.x - 16, point.y + 5)
+                p32 = rg.Point(point.x + 16, point.y + 2)
+                obj3 = rg.Rectangle(p31, p32)
+                obj3.fill_color = 'black'
+                obj3.attach_to(window)
+                self.num = self.num + 1
+                self.total = self.total + 1
+                window.render()
+            if value == 5:
+                p1 = rg.Point(point.x - 35, point.y)
+                p2 = rg.Point(point.x, point.y - 15)
+                obj = rg.Ellipse(p1, p2)
+                obj.fill_color = 'grey'
+                obj.attach_to(window)
+                self.num = self.num + 1
+                self.total = self.total + 1
+                window.render()
+            if value == 6:
+                obj = rg.Square(point, 24)
+                obj.fill_color = 'tan'
+                obj.attach_to(window)
+                self.num = self.num + 1
+                self.total = self.total + 1
+                window.render()
+            if value == 7:
+                p1 = rg.Point(point.x - 25, point.y - 5)
+                p2 = rg.Point(point.x + 25, point.y + 5)
+                obj = rg.Rectangle(p1, p2)
+                obj.fill_color = 'dark green'
+                obj.attach_to(window)
+                self.num = self.num + 1
+                self.total = self.total + 1
+                window.render()
+            if value == 8:
+                p1 = rg.Point(point.x - 25, point.y - 5)
+                p2 = rg.Point(point.x + 25, point.y + 5)
+                obj = rg.Rectangle(p1, p2)
+                obj.fill_color = 'red'
+                obj.attach_to(window)
+                self.num = self.num + 1
+                self.total = self.total + 1
+                window.render()
+            if value == 9:
+                obj = rg.Circle(point, 15)
+                obj.fill_color = 'red'
+                obj.attach_to(window)
+                self.num = self.num + 1
+                self.total = self.total + 1
+                window.render()
+            if value == 10:
+                p1 = rg.Point(point.x - 25, point.y - 5)
+                p2 = rg.Point(point.x + 25, point.y + 5)
+                obj = rg.Rectangle(p1, p2)
+                obj.fill_color = 'purple'
+                obj.attach_to(window)
+                self.num = self.num + 1
+                self.total = self.total + 1
+                window.render()
+            if value == 11:
+                obj = rg.Circle(point, 12)
+                obj.fill_color = 'black'
+                obj.attach_to(window)
+                obj = rg.Circle(point, 7)
+                obj.fill_color = self.cheese_color
+                obj.attach_to(window)
+                self.num = self.num + 1
+                self.total = self.total + 1
+                window.render()
+            if value == 12:
+                p1 = rg.Point(point.x - 10, point.y - 15)
+                p2 = rg.Point(point.x + 10, point.x + 10)
+                obj = rg.Rectangle(p1, p2)
+                obj.fill_color = 'yellow'
+                obj.attach_to(window)
+                self.num = self.num + 1
+                self.total = self.total + 1
+                window.render()
+            if value == 13:
+                p1 = rg.Point(point.x - 30, point.y)
+                p2 = rg.Point(point.x, point.y - 25)
+                obj = rg.Ellipse(p1, p2)
+                obj.fill_color = 'dark green'
+                obj.attach_to(window)
+                self.num = self.num + 1
+                self.total = self.total + 1
+                window.render()
+            if value == 14:
+                p21 = rg.Point(point.x - 25, point.y - 5)
+                p22 = rg.Point(point.x - 5, point.y + 5)
+                obj2 = rg.Rectangle(p21, p22)
+                obj2.fill_color = 'grey'
+                obj2.attach_to(window)
+                p11 = rg.Point(point.x - 30, point.y)
+                p12 = rg.Point(point.x, point.y - 25)
+                obj1 = rg.Ellipse(p11, p12)
+                obj1.fill_color = 'grey'
+                obj1.attach_to(window)
+                self.num = self.num + 1
+                self.total = self.total + 1
+                window.render()
+            if self.total >=3:
+                self.txt.detach_from(window)
+                self.txt = rg.Text(rg.Point(250, 50), 'Bake your Pizza!')
+                self.txt.attach_to(window)
+                window.render()
+
+    def bake(self, window, mqtt_client):
+        self.txt.detach_from(window)
+        bakee(mqtt_client, self.num*5, (self.ratio_number)/10)
+        # self.txt = rg.Text(rg.Point(250, 50), 'Your pizza is ready')
+        # self.txt.attach_to(window)
+        # window.render()
+        # window.close_on_mouse_click()
+
+def pt(radius, num):
+    point = rg.Point(250, 250)
+    if num == 0:
+        ptt = rg.Point(point.x + radius, point.y)
+        return ptt
+    if num == 1:
+        ptt = rg.Point(point.x, point.y + radius)
+        return ptt
+    if num == 2:
+        ptt = rg.Point(point.x - radius, point.y)
+        return ptt
+    if num == 3:
+        ptt = rg.Point(point.x, point.y - radius)
+        return ptt
+
+def bakee(mqtt_client, sec, speed1):
+    speed2 = 50
+    mqtt_client.send_message('pizza', [sec, speed1, speed2])
+    rc = RemoteControlEtc()
+    mqtt_client = com.MqttClient(rc)
+    mqtt_client.connect_to_pc()
+
+class RemoteControlEtc(object):
+    def __init__(self):
+        """
+        Stores a robot.
+            :type robot: rb.Snatch3rRobot
+        """
+
+    def order_up(self, rdy_string):
+        pay = rg.Text(rg.Point(250, 250), rdy_string)
+        ww = rg.RoseWindow(500, 500)
+        pay.attach_to(ww)
+        ww.render()
+
 
 
 
@@ -316,12 +485,15 @@ class pizza(object):
 
 def main():
     """ Runs YOUR specific part of the project """
+
     """
     robot = rb.Snatch3rRobot()
     follow_line(robot)
     """
 
-    build_your_own_pizza()
+    mqtt_client = com.MqttClient()
+    mqtt_client.connect_to_ev3()
+    build_your_own_pizza(mqtt_client)
 
 
 main()
