@@ -34,9 +34,8 @@ def follow_line(robot):
 """
 
 
-def build_your_own_pizza(mqtt_client):
+def build_your_own_pizza(mqtt_client, Pizza):
     pizza_window = rg.RoseWindow(500, 500, 'Pizza Time!')
-    Pizza = pizza()
     window = tkinter.Tk()
     frame = ttk.Frame(window, padding = 25)
     frame.grid()
@@ -59,9 +58,6 @@ def build_your_own_pizza(mqtt_client):
     toppings_button = ttk.Button(frame, text='Toppings')
     toppings_button['command'] = (lambda: Pizza.toppings_frame(pizza_window))
     toppings_button.grid()
-
-    mqtt_client = com.MqttClient()
-    mqtt_client.connect_to_ev3()
 
     bake_button = ttk.Button(frame, text='BAKE PIZZA')
     bake_button['command'] = (lambda: Pizza.bake(pizza_window, mqtt_client))
@@ -438,6 +434,12 @@ class pizza(object):
         # window.render()
         # window.close_on_mouse_click()
 
+    def order_up(self, rdy_string):
+        pay = rg.Text(rg.Point(250, 250), rdy_string)
+        ww = rg.RoseWindow(500, 500)
+        pay.attach_to(ww)
+        ww.render()
+
 def pt(radius, num):
     point = rg.Point(250, 250)
     if num == 0:
@@ -455,23 +457,21 @@ def pt(radius, num):
 
 def bakee(mqtt_client, sec, speed1):
     speed2 = 50
+    print('sending message', sec, speed1, speed2)
     mqtt_client.send_message('pizza', [sec, speed1, speed2])
-    rc = RemoteControlEtc()
-    mqtt_client = com.MqttClient(rc)
-    mqtt_client.connect_to_pc()
 
-class RemoteControlEtc(object):
-    def __init__(self):
-        """
-        Stores a robot.
-            :type robot: rb.Snatch3rRobot
-        """
-
-    def order_up(self, rdy_string):
-        pay = rg.Text(rg.Point(250, 250), rdy_string)
-        ww = rg.RoseWindow(500, 500)
-        pay.attach_to(ww)
-        ww.render()
+# class RemoteControlEtc(object):
+#     def __init__(self):
+#         """
+#         Stores a robot.
+#             :type robot: rb.Snatch3rRobot
+#         """
+#
+#     def order_up(self, rdy_string):
+#         pay = rg.Text(rg.Point(250, 250), rdy_string)
+#         ww = rg.RoseWindow(500, 500)
+#         pay.attach_to(ww)
+#         ww.render()
 
 
 
@@ -491,9 +491,10 @@ def main():
     follow_line(robot)
     """
 
-    mqtt_client = com.MqttClient()
+    Pizza = pizza()
+    mqtt_client = com.MqttClient(Pizza)
     mqtt_client.connect_to_ev3()
-    build_your_own_pizza(mqtt_client)
+    build_your_own_pizza(mqtt_client, Pizza)
 
 
 main()
