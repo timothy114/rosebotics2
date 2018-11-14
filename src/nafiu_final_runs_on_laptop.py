@@ -84,21 +84,19 @@ def handle_find_line(entry_box1, entry_box2, mqtt_client):
 def handle_found_home(message_string):
     print(message_string)
     # constructs the window for the final "home" screen
-    window = tkinter.Tk()
+    window = tkinter.Toplevel()
     window.configure(background='yellow')
     window.title("Home!")
     window.geometry("500x500")
     window.configure(background='grey')
 
-    path = "welcome_home.gif"
-
+    path = "C:\\Users\\nafiutc\\120PyCharmProjects\\rosebotics2\\welcome_home.gif"
     # makes a Tkinter photo image
     img = tkinter.PhotoImage(file=path)
-
     # The Label widget is used to display the image on the window
     label = ttk.Label(window, image=img)
 
-    label.pack(padx=5, pady=5)
+    label.grid(row=1, column=1)
 
     # used to start the GUI running
     window.mainloop()

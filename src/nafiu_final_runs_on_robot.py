@@ -9,20 +9,21 @@ def main():
     rc = RemoteControlEtc(robot)
     mqtt_client = com.MqttClient(rc)
     mqtt_client.connect_to_pc()
+    rc.mqtt_client = mqtt_client
+
     while True:
         time.sleep(0.01)  # Gives time for the delegate to do its work
 
 
 class RemoteControlEtc(object):
 
-    def __init__(self, robot, mqtt_client):
+    def __init__(self, robot):
         """
         Stores a robot.
             :type robot: rb.Snatch3rRobot
-            :type mqtt_client: com.MqttClient(rc)
         """
         self.robot = robot
-        self.mqtt_client = mqtt_client
+        self.mqtt_client = None
 
     def robot_beep(self):
         ev3.Sound.beep(1).wait()
@@ -50,7 +51,6 @@ class RemoteControlEtc(object):
     def find_home(self, mqtt_client):
         message = "We made it!"
         mqtt_client.send_message('handle_found_home', [message])
-
 
 
 main()
