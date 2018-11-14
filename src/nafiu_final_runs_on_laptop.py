@@ -81,25 +81,29 @@ def handle_find_line(entry_box1, entry_box2, mqtt_client):
     mqtt_client.send_message('find_line', [speed, color])
 
 
-def handle_found_home(message_string):
-    print(message_string)
-    # constructs the window for the final "home" screen
-    window = tkinter.Toplevel()
-    window.configure(background='yellow')
-    window.title("Home!")
-    window.geometry("500x500")
-    window.configure(background='grey')
+class RobotTalksToLaptop(object):
+    def __init__(self, message_string):
+        self.message_string = message_string
+    
+    def handle_found_home(self):
+        print(self.message_string)
+        # constructs the window for the final "home" screen
+        window = tkinter.Toplevel()
+        window.configure(background='yellow')
+        window.title("Home!")
+        window.geometry("500x500")
+        window.configure(background='grey')
 
-    path = "C:\\Users\\nafiutc\\120PyCharmProjects\\rosebotics2\\welcome_home.gif"
-    # makes a Tkinter photo image
-    img = tkinter.PhotoImage(file=path)
-    # The Label widget is used to display the image on the window
-    label = ttk.Label(window, image=img)
+        path = "C:\\Users\\nafiutc\\120PyCharmProjects\\rosebotics2\\welcome_home.gif"
+        # makes a Tkinter photo image
+        img = tkinter.PhotoImage(file=path)
+        # The Label widget is used to display the image on the window
+        label = ttk.Label(window, image=img)
 
-    label.grid(row=1, column=1)
+        label.grid(row=1, column=1)
 
-    # used to start the GUI running
-    window.mainloop()
+        # used to start the GUI running
+        window.mainloop()
 
 
 main()
