@@ -84,7 +84,7 @@ def handle_find_line(entry_box1, entry_box2, mqtt_client):
 class RobotTalksToLaptop(object):
     def __init__(self, message_string):
         self.message_string = message_string
-    
+
     def handle_found_home(self):
         print(self.message_string)
         # constructs the window for the final "home" screen
