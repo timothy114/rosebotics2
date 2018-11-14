@@ -32,7 +32,6 @@ def setup_gui_line_following(root_window, mqtt_client):
     speed_button = ttk.Button(frame, text="Enter speed", style="TButton")
     follow_color_button = ttk.Button(frame, text="Enter color")
 
-
     speed_entry_box.grid()
     speed_button.grid()
     color_entry_box.grid()
