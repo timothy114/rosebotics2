@@ -29,8 +29,7 @@ def setup_gui_line_following(root_window, mqtt_client):
 
     speed_entry_box = ttk.Entry(frame)
     color_entry_box = ttk.Entry(frame)
-    speed_button = ttk.Button(frame, text="Enter speed", style="TButton")
-    follow_color_button = ttk.Button(frame, text="Enter color")
+    speed_color_button = ttk.Button(frame, text="Enter color, speed and GO!", style="TButton")
     text = tkinter.Text(root_window, height=3, width=50)
     text.insert(tkinter.INSERT, " Every color has a corresponding number so please\n"
                                 " enter the NUMBER for the color you want:"
@@ -39,19 +38,11 @@ def setup_gui_line_following(root_window, mqtt_client):
     text.grid()
 
     speed_entry_box.grid()
-    speed_button.grid()
     color_entry_box.grid()
-    follow_color_button.grid()
+    speed_color_button.grid()
 
-    """
-    How do I send BOTH the color and the speed data to 'handle_find_line'? I want 'handle_find_line' to receive the speed
-    value when the speed button is pressed and the color value when the color is pressed but I don't want it to run the 
-    program both times.
-    """
-    speed_button['command'] = \
+    speed_color_button['command'] = \
         lambda: handle_find_line(speed_entry_box, color_entry_box, mqtt_client)
-    follow_color_button['command'] = \
-        lambda: handle_find_line(speed_entry_box,color_entry_box, mqtt_client)
 
 
 def setup_gui_remote_control(root_window, mqtt_client):
@@ -94,10 +85,11 @@ def handle_found_home():
     window.geometry("300x300")
     window.configure(background='grey')
 
-    path = "welcome-home.jpg"
+    path = "welcome_home.gif"
 
     # makes a Tkinter photo image
     image = tkinter.PhotoImage(file=path)
+    image
 
     # The Label widget is used to display the image on the window
     label = ttk.Label(window, image=image)
