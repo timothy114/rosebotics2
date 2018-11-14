@@ -93,14 +93,12 @@ def handle_found_home(message_string):
     path = "welcome_home.gif"
 
     # makes a Tkinter photo image
-    image = tkinter.PhotoImage(file=path)
-    image
+    img = tkinter.PhotoImage(file=path)
 
     # The Label widget is used to display the image on the window
-    label = ttk.Label(window, image=image)
+    label = ttk.Label(window, image=img)
 
-    # The Pack manger packs the image and any text together
-    label.pack(side="bottom", fill="both", expand="yes")
+    label.pack(padx=5, pady=5)
 
     # used to start the GUI running
     window.mainloop()
