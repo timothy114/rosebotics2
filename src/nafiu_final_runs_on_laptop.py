@@ -8,7 +8,7 @@ def main():
     """ Constructs and runs a GUI for this program. """
     root = tkinter.Tk()
     root.title('Ready for user input!')
-    root.geometry('300x400')
+    root.geometry('500x500')
 
     mqtt_client = com.MqttClient()
     mqtt_client.connect_to_ev3()
@@ -31,6 +31,12 @@ def setup_gui_line_following(root_window, mqtt_client):
     color_entry_box = ttk.Entry(frame)
     speed_button = ttk.Button(frame, text="Enter speed", style="TButton")
     follow_color_button = ttk.Button(frame, text="Enter color")
+    text = tkinter.Text(root_window, height=3, width=50)
+    text.insert(tkinter.INSERT, " Every color has a corresponding number so please\n"
+                                " enter the NUMBER for the color you want:"
+                                "\n BLUE = 2, GREEN = 3, YELLOW = 4, RED = 5")
+    text.config(state='disabled')
+    text.grid()
 
     speed_entry_box.grid()
     speed_button.grid()
