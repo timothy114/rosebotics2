@@ -45,10 +45,11 @@ class RemoteControlEtc(object):
                 self.robot.drive_system.stop_moving()
                 break
             else:
-                self.robot.color_sensor.wait_until_intensity_is_less_than(5)
-                self.robot.drive_system.start_moving()
-                self.robot.color_sensor.wait_until_intensity_is_greater_than(5)
-                self.robot.drive_system.stop_moving()
+                print(self.robot.color_sensor.get_reflected_intensity())
+                if self.robot.color_sensor.get_reflected_intensity() <= 5:
+                    self.robot.drive_system.start_moving(20, 20)
+                else:
+                    self.robot.drive_system.start_moving(100, 20)
 
     def find_home(self, mqtt_client):
         message = "We made it!"
