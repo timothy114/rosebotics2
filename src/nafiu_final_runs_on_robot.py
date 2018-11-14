@@ -9,7 +9,7 @@ def main():
     rc = RemoteControlEtc(robot)
     mqtt_client = com.MqttClient(rc)
     mqtt_client.connect_to_pc()
-    mqtt_client.find_home()
+    # mqtt_client.find_home()
     while True:
         time.sleep(0.01)  # Gives time for the delegate to do its work
         if robot.beacon_button_sensor.is_top_red_button_pressed():

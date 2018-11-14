@@ -8,7 +8,7 @@ def main():
     """ Constructs and runs a GUI for this program. """
     root = tkinter.Tk()
     root.title('Ready for user input!')
-    root.geometry('500x500')
+    root.geometry('500x300')
 
     mqtt_client = com.MqttClient()
     mqtt_client.connect_to_ev3()
