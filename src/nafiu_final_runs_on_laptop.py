@@ -78,7 +78,7 @@ def handle_find_line(entry_box1, entry_box2, mqtt_client):
     speed = entry_box1.get()
     color = entry_box2.get()
     print("Sending 'find_line' to the robot with a speed of", speed, "and a color of", color)
-    mqtt_client.send_message('find_line', [speed, color])
+    mqtt_client.send_message('find_line', [speed, color, mqtt_client])
 
 
 def handle_found_home(message_string):
