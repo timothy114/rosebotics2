@@ -55,8 +55,8 @@ def setup_gui_remote_control(root_window, mqtt_client):
 
     beep_button = ttk.Button(frame, text="Beep")
     greet_button = ttk.Button(frame, text="Greeting")
-    # beep_button.grid()
-    # greet_button.grid()
+    beep_button.grid(row=1, column=2)
+    greet_button.grid(row=2, column=2)
 
     beep_button['command'] = lambda: handle_robot_beep(mqtt_client)
     greet_button['command'] = lambda: handle_robot_greeting(mqtt_client)
