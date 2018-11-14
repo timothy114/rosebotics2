@@ -39,7 +39,7 @@ class RemoteControlEtc(object):
         while True:
             if self.robot.color_sensor.get_color() == color:
                 self.robot.drive_system.stop_moving()
-                self.find_home(self, self.mqtt_client)
+                self.find_home(self.mqtt_client)
                 break
             else:
                 print(self.robot.color_sensor.get_reflected_intensity())

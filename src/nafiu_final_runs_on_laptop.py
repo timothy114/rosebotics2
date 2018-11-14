@@ -101,4 +101,5 @@ def handle_found_home(message_string):
     # used to start the GUI running
     window.mainloop()
 
+
 main()
