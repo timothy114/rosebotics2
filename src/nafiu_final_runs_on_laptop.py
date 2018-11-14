@@ -35,7 +35,7 @@ class RobotTalksToLaptop(object):
         window.geometry("500x500")
         window.configure(background='grey')
 
-        path = "C:\\Users\\nafiutc\\120PyCharmProjects\\rosebotics2\\welcome_home.gif"
+        path = "C:\\Users\\nafiutc\\120PycharmProjects\\rosebotics2\\welcome_home.gif"
         # makes a Tkinter photo image
         img = ImageTk.PhotoImage(Image.open(path))
         # The Label widget is used to display the image on the window
