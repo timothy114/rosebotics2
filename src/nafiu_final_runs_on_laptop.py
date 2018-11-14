@@ -30,6 +30,8 @@ def setup_gui_line_following(root_window, mqtt_client):
     speed_entry_box = ttk.Entry(frame)
     color_entry_box = ttk.Entry(frame)
     speed_color_button = ttk.Button(frame, text="Enter color, speed and GO!", style="TButton")
+    label1 = ttk.Label(frame, text="Speed")
+    label2 = ttk.Label(frame, text="Color")
     text = tkinter.Text(root_window, height=3, width=50)
     text.insert(tkinter.INSERT, " Every color has a corresponding number so please\n"
                                 " enter the NUMBER for the color you want:"
@@ -37,9 +39,11 @@ def setup_gui_line_following(root_window, mqtt_client):
     text.config(state='disabled')
     text.grid()
 
-    speed_entry_box.grid()
-    color_entry_box.grid()
-    speed_color_button.grid()
+    label1.grid(row=1, column=1)
+    speed_entry_box.grid(row=1, column=2)
+    label2.grid(row=2, column=1)
+    color_entry_box.grid(row=2, column=2)
+    speed_color_button.grid(row=3, column=2)
 
     speed_color_button['command'] = \
         lambda: handle_find_line(speed_entry_box, color_entry_box, mqtt_client)
@@ -51,8 +55,8 @@ def setup_gui_remote_control(root_window, mqtt_client):
 
     beep_button = ttk.Button(frame, text="Beep")
     greet_button = ttk.Button(frame, text="Greeting")
-    beep_button.grid()
-    greet_button.grid()
+    # beep_button.grid()
+    # greet_button.grid()
 
     beep_button['command'] = lambda: handle_robot_beep(mqtt_client)
     greet_button['command'] = lambda: handle_robot_greeting(mqtt_client)
