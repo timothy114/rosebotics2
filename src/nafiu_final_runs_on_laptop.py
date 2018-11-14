@@ -81,7 +81,8 @@ def handle_find_line(entry_box1, entry_box2, mqtt_client):
     mqtt_client.send_message('find_line', [speed, color])
 
 
-def handle_found_home():
+def handle_found_home(message_string):
+    print(message_string)
     # constructs the window for the final "home" screen
     window = tkinter.Tk()
     window.configure(background='yellow')
@@ -103,6 +104,5 @@ def handle_found_home():
 
     # used to start the GUI running
     window.mainloop()
-
 
 main()

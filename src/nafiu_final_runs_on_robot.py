@@ -57,23 +57,9 @@ class RemoteControlEtc(object):
                             spin = -spin * (-k + 2)
 
     def find_home(self, mqtt_client):
-        while True:
-            while self.robot.touch_sensor.get_value() == 0:
-                spin = 1
-                self.robot.color_sensor.wait_until_intensity_is_less_than(5)
-                self.robot.drive_system.start_moving()
-                self.robot.color_sensor.wait_until_intensity_is_greater_than(5)
-                self.robot.drive_system.stop_moving()
-                for k in range(360):
-                    if spin < 360:
-                        self.robot.drive_system.spin_in_place_degrees(spin)
-                        if self.robot.color_sensor.get_reflected_intensity() <= (5):
-                            spin = spin + 360
-                        spin = -spin * (-k + 2)
-            if self.robot.camera:
-                time.sleep(0.1)
-                # mqtt_client.send_message('handle_found_home', [])
-                break
+        message = "We made it!"
+        mqtt_client.send_message('handle_found_home', [message])
+
 
 
 main()
