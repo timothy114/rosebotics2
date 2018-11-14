@@ -37,9 +37,10 @@ class RobotTalksToLaptop(object):
 
         path = "C:\\Users\\nafiutc\\120PyCharmProjects\\rosebotics2\\welcome_home.gif"
         # makes a Tkinter photo image
-        img = tkinter.PhotoImage(file=path)
+        img = ImageTk.PhotoImage(Image.open(path))
         # The Label widget is used to display the image on the window
         label = ttk.Label(window, image=img)
+        label.image = img
 
         label.grid(row=1, column=1)
 
