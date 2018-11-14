@@ -87,7 +87,7 @@ def handle_found_home(message_string):
     window = tkinter.Tk()
     window.configure(background='yellow')
     window.title("Home!")
-    window.geometry("300x300")
+    window.geometry("500x500")
     window.configure(background='grey')
 
     path = "welcome_home.gif"
