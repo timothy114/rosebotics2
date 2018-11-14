@@ -9,7 +9,7 @@ def main():
     rc = RemoteControlEtc(robot)
     mqtt_client = com.MqttClient(rc)
     mqtt_client.connect_to_pc()
-    # mqtt_client.find_home()
+    mqtt_client.find_home()
     while True:
         time.sleep(0.01)  # Gives time for the delegate to do its work
         if robot.beacon_button_sensor.is_top_red_button_pressed():
@@ -38,8 +38,6 @@ class RemoteControlEtc(object):
         color = int(color_string)
         print('Robot should start moving')
         self.robot.drive_system.start_moving(speed, speed)
-        print(self.robot.color_sensor.get_color())
-        print(color)
         while True:
             if self.robot.color_sensor.get_color() == color:
                 self.robot.drive_system.stop_moving()
@@ -47,9 +45,9 @@ class RemoteControlEtc(object):
             else:
                 print(self.robot.color_sensor.get_reflected_intensity())
                 if self.robot.color_sensor.get_reflected_intensity() <= 5:
-                    self.robot.drive_system.start_moving(20, 20)
+                    self.robot.drive_system.start_moving(speed, speed)
                 else:
-                    self.robot.drive_system.start_moving(100, 20)
+                    self.robot.drive_system.start_moving(100, 15)
 
     def find_home(self, mqtt_client):
         message = "We made it!"
