@@ -15,12 +15,14 @@ def main():
 
 class RemoteControlEtc(object):
 
-    def __init__(self, robot):
+    def __init__(self, robot, mqtt_client):
         """
         Stores a robot.
             :type robot: rb.Snatch3rRobot
+            :type mqtt_client: com.MqttClient(rc)
         """
         self.robot = robot
+        self.mqtt_client = mqtt_client
 
     def robot_beep(self):
         ev3.Sound.beep(1).wait()
@@ -28,7 +30,7 @@ class RemoteControlEtc(object):
     def robot_greeting(self):
         ev3.Sound.speak('Hi, how are you?')
 
-    def find_line(self, speed_string, color_string, mqtt_client):
+    def find_line(self, speed_string, color_string):
         speed = int(speed_string)
         color = int(color_string)
         print('Robot should start moving')
@@ -36,7 +38,7 @@ class RemoteControlEtc(object):
         while True:
             if self.robot.color_sensor.get_color() == color:
                 self.robot.drive_system.stop_moving()
-                self.find_home(self, mqtt_client)
+                self.find_home(self, self.mqtt_client)
                 break
             else:
                 print(self.robot.color_sensor.get_reflected_intensity())
