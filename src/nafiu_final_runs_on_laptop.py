@@ -9,15 +9,42 @@ def main():
     root = tkinter.Tk()
     root.title('Ready for user input!')
     root.geometry('500x300')
-
-    mqtt_client = com.MqttClient()
+    message_string = ''
+    rl = RobotTalksToLaptop(message_string)
+    mqtt_client = com.MqttClient(rl)
     mqtt_client.connect_to_ev3()
 
     setup_gui_line_following(root, mqtt_client)
     setup_gui_remote_control(root, mqtt_client)
-    # handle_found_home()
 
     root.mainloop()
+
+
+class RobotTalksToLaptop(object):
+
+    def __init__(self, message_string):
+        self.message_string = message_string
+
+    def handle_found_home(self, message):
+        self.message_string = message
+        print(self.message_string)
+        # constructs the window for the final "home" screen
+        window = tkinter.Toplevel()
+        window.configure(background='yellow')
+        window.title("Home!")
+        window.geometry("500x500")
+        window.configure(background='grey')
+
+        path = "C:\\Users\\nafiutc\\120PyCharmProjects\\rosebotics2\\welcome_home.gif"
+        # makes a Tkinter photo image
+        img = tkinter.PhotoImage(file=path)
+        # The Label widget is used to display the image on the window
+        label = ttk.Label(window, image=img)
+
+        label.grid(row=1, column=1)
+
+        # used to start the GUI running
+        window.mainloop()
 
 
 def setup_gui_line_following(root_window, mqtt_client):
@@ -79,31 +106,6 @@ def handle_find_line(entry_box1, entry_box2, mqtt_client):
     color = entry_box2.get()
     print("Sending 'find_line' to the robot with a speed of", speed, "and a color of", color)
     mqtt_client.send_message('find_line', [speed, color])
-
-
-class RobotTalksToLaptop(object):
-    def __init__(self, message_string):
-        self.message_string = message_string
-
-    def handle_found_home(self):
-        print(self.message_string)
-        # constructs the window for the final "home" screen
-        window = tkinter.Toplevel()
-        window.configure(background='yellow')
-        window.title("Home!")
-        window.geometry("500x500")
-        window.configure(background='grey')
-
-        path = "C:\\Users\\nafiutc\\120PyCharmProjects\\rosebotics2\\welcome_home.gif"
-        # makes a Tkinter photo image
-        img = tkinter.PhotoImage(file=path)
-        # The Label widget is used to display the image on the window
-        label = ttk.Label(window, image=img)
-
-        label.grid(row=1, column=1)
-
-        # used to start the GUI running
-        window.mainloop()
 
 
 main()
