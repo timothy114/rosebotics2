@@ -11,7 +11,6 @@ def main():
     mqtt_client.connect_to_pc()
     while True:
         time.sleep(0.01)  # Gives time for the delegate to do its work
-        mqtt_client.find_home()
 
 
 class RemoteControlEtc(object):
@@ -29,7 +28,7 @@ class RemoteControlEtc(object):
     def robot_greeting(self):
         ev3.Sound.speak('Hi, how are you?')
 
-    def find_line(self, speed_string, color_string):
+    def find_line(self, speed_string, color_string, mqtt_client):
         speed = int(speed_string)
         color = int(color_string)
         print('Robot should start moving')
@@ -37,6 +36,7 @@ class RemoteControlEtc(object):
         while True:
             if self.robot.color_sensor.get_color() == color:
                 self.robot.drive_system.stop_moving()
+                self.find_home(mqtt_client)
                 break
             else:
                 print(self.robot.color_sensor.get_reflected_intensity())
